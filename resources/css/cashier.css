@@ -1,0 +1,158 @@
+.slick-prev:before,
+.slick-next:before {
+    color: #6827a2
+}
+
+.slick-initialized .slick-slide:hover,
+.slick-initialized .slick-slide.active {
+    background-color: transparent;
+}
+
+.order-box {
+    margin: 6px;
+}
+
+.actions .btn {
+    width: 100%;
+}
+
+.actions .btn-wrapper {
+    padding: 5px;
+}
+
+.empty-orders {
+    text-align: center;
+    height: 493px;
+}
+
+.empty-orders h4 {
+    padding-top: 209px;
+}
+
+span.frist-text {
+    font-size: 2pc;
+    margin-left: 330px;
+}
+
+span.middle-text {
+    font-size: 2pc;
+    margin: -23px;
+}
+
+p#total {
+    margin: -24px;
+    padding-right: 48px;
+    padding-left: 265px;
+}
+
+p.left-text {
+    padding-top: -18px;
+    margin-top: -35px;
+    padding-left: 269px;
+}
+
+span.middle-input input#input {
+    width: 277px;
+    margin-right: 82px;
+    padding-top: 28px;
+}
+
+span.third-text {
+    font-size: 2pc;
+    margin-left: 368px;
+}
+
+.frist-line.col.s12 {
+    height: 58px;
+}
+
+.col.s12.middle-line {
+    border-bottom: double;
+    border-bottom-width: initial;
+    height: 109px;
+}
+
+.button-wrapper {
+    margin-right: 549px;
+}
+
+.modal {
+    height: 334px;
+    width: 49%;
+}
+
+ul.order-items {
+    height: 218px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+@media (max-width: 992px) {
+    .empty-orders {
+        text-align: center;
+        height: 892px;
+    }
+    .empty-orders h4 {
+        padding-top: 399px;
+    }
+}
+
+@media (max-width: 992px) {
+    span.frist-text {
+        font-size: 2pc;
+        margin-left: 355px;
+    }
+    p#total {
+        margin: -25px;
+        padding-left: 259px;
+    }
+    .frist-line.col.s12 {
+        height: 68px;
+    }
+    span.middle-text {
+        margin: 0px;
+    }
+    p.left-text {
+        margin-top: -25px;
+        padding-left: 269px;
+    }
+    span.third-text {
+        font-size: 2pc;
+        margin-left: 389px;
+    }
+    .modal {
+        height: 353px;
+        width: 84%;
+    }
+}
+td.text-center {
+    color: #000;
+    padding: 0px !important;
+  }
+  /* css print modal  */
+.invoice-title {
+    color: black;
+    text-align: left;
+}
+.bold{
+  font-weight: bold;
+  color: #000;
+}
+.print{
+
+  padding: 5px;
+  margin:18px;
+  text-align: center;
+}
+.invoice{
+  color: black;
+    text-align: center;
+}
+.right-align {
+  height: 39px;
+  margin-top: 7px;
+}
+div#pill {
+    height: 437px;
+}
+

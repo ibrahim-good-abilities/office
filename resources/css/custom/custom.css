@@ -1,0 +1,124 @@
+/*================================================================================
+	Item Name: Materialize - Material Design Admin Template
+	Version: 5.0
+	Author: PIXINVENT
+	Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN CSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+.dir_rtl {
+    direction: rtl;
+}
+
+span.order_label {
+    font-weight: bold;
+    float: right;
+    padding-left: 15px;
+}
+
+.style-1::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+.style-1::-webkit-scrollbar-thumb {
+    background-color: #000000;
+}
+
+.style-1::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+}
+
+img.item-image {
+    width: 50px;
+}
+
+.button-wrapper {
+    display: inline-block;
+}
+
+#main-blank {
+    min-height: calc(115% - 172px);
+}
+
+div#update-order-section {
+    margin-top: 40px;
+}
+
+div#main.no-padding {
+    padding-left: 0px;
+}
+
+
+/* datatables */
+
+div#category-table_length {
+    display: none;
+}
+
+span.notification-title {
+    width: 80%;
+    font-size: 15px!important;
+}
+
+span.material-icons.icon-bg-circle.cyan.small {
+    top: -10px!important;
+    left: 3px;
+}
+
+span.new.badge {
+    margin: 10px;
+}
+
+ul#notifications-dropdown {
+    width: 19% !important;
+    font-size: 15px!important;
+}
+
+
+.btn-fluid {
+    padding: 0px;
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+div#parista-layout {
+    min-height: calc(115% - 209px);
+}
+
+.dimmed-row {
+    color: white;
+    background-color: #9c9c9c!important;
+}
+
+.m-t-10 {
+    margin-top: 10px;
+}
+
+.brand-sidebar .logo-wrapper a.brand-logo img {
+    width: auto;
+    height: 51px;
+    float: left;
+    margin-top: -7px;
+}
+
+.logo-text.hide-on-med-and-down {
+    display: inline-block;
+    float: right;
+    margin-top: 20px;
+    font-size: 40px!important;
+}
+
+@media (max-width: 992px) {
+    div#parista-layout {
+        min-height: calc(115% - 271px);
+    }
+}

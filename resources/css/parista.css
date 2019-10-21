@@ -1,0 +1,35 @@
+.slick-prev:before,
+.slick-next:before {
+    color: #6827a2
+}
+
+.slick-initialized .slick-slide:hover,
+.slick-initialized .slick-slide.active {
+    background-color: transparent;
+}
+
+.order-box {
+    margin: 6px;
+}
+
+.actions .btn {
+    width: 100%;
+}
+
+.actions .btn-wrapper {
+    padding: 5px;
+}
+
+.empty-orders {
+    text-align: center;
+}
+
+.empty-orders h4 {
+    padding-top: 237px;
+    margin: 0px;
+}
+
+#orders {
+    width: 95%;
+    margin: 0 auto;
+}

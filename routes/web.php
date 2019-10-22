@@ -69,6 +69,15 @@ use Illuminate\Routing\Router;
     Route::get('/offices/edit/{id}','OfficeController@edit')->name('edit_office');
     Route::post('/offices/update/{id}','OfficeController@update')->name('update_office');
     Route::get('/offices/delete{id}','OfficeController@destroy')->name('delete_office');
+    //services
+    Route::get('/services/index','ServiceController@index')->name('all_services');
+    Route::get('/services/create','ServiceController@create')->name('create_service');
+    Route::post('/services/store','ServiceController@store')->name('store_service');
+    Route::get('/services/edit/{id}','ServiceController@edit')->name('edit_service');
+    Route::post('/services/update/{id}','ServiceController@update')->name('update_service');
+    Route::get('/services/delete/{id}','ServiceController@destroy')->name('delete_service');
+
+
 
 
 

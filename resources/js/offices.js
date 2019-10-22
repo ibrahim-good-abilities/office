@@ -3,14 +3,14 @@ $(document).ready(function() {
     var language = "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json";
 
 
-    $('#cities').DataTable({
+    $('#offices').DataTable({
         "responsive": false,
 
         "language": {
             "url": language
         },
         columnDefs: [
-            { orderable: false, targets: 2 }
+            { orderable: false, targets: 7 }
         ]
     });
 

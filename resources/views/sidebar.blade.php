@@ -33,7 +33,24 @@
                     </ul>
                 </div>
         </li>
+        <li class="bold"><a class="collapsible-header waves-effect waves-cyan" href="javascript:void(0)"><i class="material-icons">playlist_add_check</i>
+                <span class="menu-title" data-i18n="">{{ __('Offices') }}</span></a>
+                <div class="collapsible-body">
+                    <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                            <li>
+                                <a class="collapsible-body" href="{{route('all_offices')}}" data-i18n=""><i class="material-icons">radio_button_unchecked</i>
+                                     <span> {{ __('Offices') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="collapsible-body" href="{{route('create_office')}}" data-i18n=""><i class="material-icons">radio_button_unchecked</i>
+                                     <span> {{ __('Add New Office') }}</span>
+                                </a>
+                            </li>
 
+                    </ul>
+                </div>
+        </li>
         <li class="bold"><a class="collapsible-header waves-effect waves-cyan" href="javascript:void(0)"><i class="material-icons">playlist_add_check</i>
                 <span class="menu-title" data-i18n="">{{ __('Roles') }}</span></a>
                 <div class="collapsible-body">

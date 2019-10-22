@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Requirement;
 use App\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class ServiceController extends Controller
 {
@@ -70,7 +73,12 @@ class ServiceController extends Controller
     public function edit($id)
     {
         $service = Service::find($id);
-        return  view('services.edit')->with('service',$service);
+        $requirements =DB::table('services')
+        ->join('requirements','requirements.serviceId','=','services.id')
+        ->select('requirements.*')
+        ->where('requirements.serviceId','=',$id)
+        ->get();
+        return  view('services.edit')->with('service',$service)->with('requirements',$requirements);
     }
 
     /**

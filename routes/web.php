@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
+
 use Illuminate\Routing\Router;
 
 
@@ -76,6 +77,11 @@ use Illuminate\Routing\Router;
     Route::get('/services/edit/{id}','ServiceController@edit')->name('edit_service');
     Route::post('/services/update/{id}','ServiceController@update')->name('update_service');
     Route::get('/services/delete/{id}','ServiceController@destroy')->name('delete_service');
+    //requirements
+    Route::post('/requirement/store','RequirementController@store')->name('store_requirement');
+    Route::get('/requirement/delete/{id}','RequirementController@destroy')->name('delete_requirement');
+
+
 
 
 

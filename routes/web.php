@@ -10,8 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-
 use Illuminate\Routing\Router;
+
 
 //Auth::routes();
 //Route::get('logout', 'Auth\LoginController@logout');
@@ -39,7 +39,7 @@ use Illuminate\Routing\Router;
 // })->name('home');
 //Route::get('/register','RegisterController@store')->name('sign_up');
 
-Route::get('/','IndexController@index')->name('home');
+    Route::get('/','IndexController@index')->name('home');
 
     //role
     Route::get('/role/create','RoleController@create')->name('add_role');
@@ -55,7 +55,13 @@ Route::get('/','IndexController@index')->name('home');
     Route::post('/users/store','RegisterController@store')->name('store_user');
     Route::get('/users/edit/{id}','RegisterController@edit')->name('edit_user');
     Route::post('/users/update/{id}','RegisterController@update')->name('update_user');
-    //home
+    //city
+    Route::get('/cities/index','CityController@index')->name('all_cities');
+    Route::get('/cities/create','CityController@create')->name('create_city');
+    Route::post('/cities/store','CityController@store')->name('store_city');
+    Route::get('/cities/edit/{id}','CityController@edit')->name('edit_city');
+    Route::post('/cities/update/{id}','CityController@update')->name('update_city');
+    Route::get('/cities/delete{id}','CityController@destroy')->name('delete_city');
 
 
 

@@ -15,12 +15,24 @@
             <li class="bold">
                 <a class="waves-effect waves-cyan " href="{{route('home')}}"><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">{{ __('Welcome') }}</span></a>
             </li>
+            <li class="bold"><a class="collapsible-header waves-effect waves-cyan" href="javascript:void(0)"><i class="material-icons">playlist_add_check</i>
+                <span class="menu-title" data-i18n="">{{ __('Cities') }}</span></a>
+                <div class="collapsible-body">
+                    <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                            <li>
+                                <a class="collapsible-body" href="{{route('all_cities')}}" data-i18n=""><i class="material-icons">radio_button_unchecked</i>
+                                     <span> {{ __('Cities') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="collapsible-body" href="{{route('create_city')}}" data-i18n=""><i class="material-icons">radio_button_unchecked</i>
+                                     <span> {{ __('Add New City') }}</span>
+                                </a>
+                            </li>
 
-
-
-
-
-
+                    </ul>
+                </div>
+        </li>
 
         <li class="bold"><a class="collapsible-header waves-effect waves-cyan" href="javascript:void(0)"><i class="material-icons">playlist_add_check</i>
                 <span class="menu-title" data-i18n="">{{ __('Roles') }}</span></a>

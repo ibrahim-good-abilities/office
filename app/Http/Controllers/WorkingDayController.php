@@ -2,17 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
 use Illuminate\Http\Request;
 
-
-use App\Role;
-class RoleController extends Controller
+class WorkingDayController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +13,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('roles.index')->with('roles',$roles);
+        //
     }
 
     /**
@@ -31,7 +23,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('roles.add');
+        //
     }
 
     /**
@@ -42,16 +34,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'roleName' => ['required','unique:roles'],
-            'slug' => ['required', 'string', 'max:255', 'unique:roles', 'alpha_dash']
-        ]);
-        $role = new Role();
-        $role->roleName = request('roleName');
-        $role->slug = request('slug');
-
-        $role->save();
-        return redirect()->route('edit_role',$role->id)->with('success',__('Role created succesfully'));
+        //
     }
 
     /**
@@ -73,8 +56,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
-        return view('roles.edit')->with('role',$role);
+        //
     }
 
     /**
@@ -86,16 +68,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'roleName' => ['required','unique:roles'],
-            'slug' => ['required', 'string', 'max:255', 'unique:roles', 'alpha_dash']
-        ]);
-        $role = Role::find($id);
-        $role->roleName = request('roleName');
-        $role->slug = request('slug');
-
-        $role->save();
-        return redirect()->back()->with('success',__('Role updated successfully'));
+        //
     }
 
     /**
@@ -106,10 +79,6 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-
-        $role = Role::find($id);
-        //dd($role);
-        $role->delete();
-        return redirect()->back()->with('success',__('Role deleted successfully'));
+        //
     }
 }

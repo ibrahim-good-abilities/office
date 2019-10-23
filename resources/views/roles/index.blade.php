@@ -37,7 +37,7 @@
                 @foreach ($roles as $role)
                 <tr>
                     <td>{{ $role->id}}</td>
-                    <td>{{ $role->role_name}}</td>
+                    <td>{{ $role->roleName}}</td>
                     <td>
                         <a  href="{{route('edit_role',$role->id)}}">
                             <i class="material-icons">edit</i>

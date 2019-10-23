@@ -23,8 +23,8 @@ class RegisterController extends Controller
     public function index()
     {
         $users =DB::table('users')
-        ->join('roles','users.role_id','=','roles.id')
-        ->select('users.*','roles.role_name')
+        ->join('roles','users.roleId','=','roles.id')
+        ->select('users.*','roles.roleName')
         ->get();
 
         return view('users.index')->with('users',$users);

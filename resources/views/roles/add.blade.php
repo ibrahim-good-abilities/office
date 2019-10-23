@@ -36,8 +36,12 @@
    @csrf
          <div class="row">
             <div class="input-name col s12">
-               <input  name="role_name" id="role_name" type="text" class="validate" placeholder="{{ __('Add Role Name') }}">
-               <label for="first_name">{{ __('Role Name') }}</label>
+               <input  name="roleName" id="roleName" type="text" class="validate" placeholder="{{ __('Add Role Name') }}">
+               <label for="roleName">{{ __('Role Name') }}</label>
+            </div>
+            <div class="input-name col s12">
+               <input  name="slug" id="slug" type="text" class="validate" placeholder="{{ __('Add Role Slug') }}">
+               <label for="slug">{{ __('Role slug') }}</label>
             </div>
 
 

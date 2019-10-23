@@ -28,11 +28,11 @@
 <table id="offices" class="subscription-table highlight">
     <thead>
         <tr>
-            <th>{{ __('Office Id') }}</th>
+            <th>{{ __('#') }}</th>
             <th>{{ __('Office Name') }}</th>
             <th> {{ __('Office Address') }}</th>
-            <th> {{ __('Office phone') }}</th>
-            <th>{{__('Office mobile')}}</th>
+            <th> {{ __('Office Phone') }}</th>
+            <th>{{__('Office Mobile')}}</th>
             <th>{{ __('Office Email') }}</th>
             <th>{{__('City Id')}}</th>
             <th>{{__('Settings')}}</th>

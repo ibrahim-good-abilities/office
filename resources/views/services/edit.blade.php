@@ -38,7 +38,7 @@
          <div class="row">
             <div class="input-name col s12">
                <input  name="serviceName" id="serviceName" type="text" class="validate" placeholder="{{ __('Add Service Name') }}" value="{{$service->serviceName}}">
-               <label for="serviceName">{{ __('Service Name ') }}</label>
+               <label for="serviceName">{{ __('Service Name') }}</label>
             </div>
 
 

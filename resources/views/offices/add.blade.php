@@ -53,8 +53,8 @@
             </div>
 
             <div class="input-name col s12">
-               <input  name="officeNumber" id="officeNumber" type="text" class="validate" placeholder="{{ __('Add Office Number') }}">
-               <label for="officeNumber">{{ __('Office number') }}</label>
+               <input  name="officeNumber" id="officeNumber" type="text" class="validate" placeholder="{{ __('Add Office Mobile') }}">
+               <label for="officeNumber">{{ __('Office Mobile') }}</label>
             </div>
 
 

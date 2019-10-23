@@ -28,10 +28,10 @@
 <table id="services" class="subscription-table highlight">
     <thead>
         <tr>
-            <th>{{ __('Service Id') }}</th>
+            <th>{{ '#' }}</th>
             <th>{{ __('Service Name') }}</th>
-            <th> {{ __('Services Price') }}</th>
-            <th> {{ __('Services Time') }}</th>
+            <th> {{ __('Service Price') }}</th>
+            <th> {{ __('Service Time') }}</th>
             <th>{{__('Settings')}}</th>
         </tr>
     </thead>

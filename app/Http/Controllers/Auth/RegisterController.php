@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\City;
+use App\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -50,9 +52,18 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'userName' => ['required', 'string', 'max:255'],
+            'userEmail' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'cityId' => 'required',
+            'userAddress' => 'required',
+            'userMobile' => 'required',
+            'userPhone' => 'required',
+            'userJopTitle' => 'required',
+            'userIdNum' => 'required',
+
+
+
         ]);
     }
 
@@ -64,10 +75,37 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // $request = request();
+        // $file = $request->file('userIdFile');
+        // $name_file = time() . '.' . $file->getClientOriginalExtension();
+        // $destinationPath = public_path('/files/profile/');
+        // $file->move($destinationPath, $name_file);
+        $request = request();
+
+        $file = $request->file('userIdFile');
+        $fileSaveAsName = time() . "-profile." .$file->getClientOriginalExtension();
+        $upload_path = 'profile_files/';
+        $profile_image_url = $upload_path . $fileSaveAsName;
+        $file->move($upload_path, $fileSaveAsName);
+
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make(($data['password'])),
+            'userName' => $data['userName'],
+            'userEmail' => $data['userEmail'],
+            'userPassword' => Hash::make(($data['password'])),
+            'cityId' => $data['cityId'],
+            'roleId' => 1,
+            'userAddress' => $data['userAddress'],
+            'userMobile' => $data['userMobile'],
+            'userPhone' => $data['userPhone'],
+            'userJopTitle' => $data['userJopTitle'],
+            'userIdNum' => $data['userIdNum'],
+            'userIdFile' =>$profile_image_url
+
         ]);
+    }
+    public function showRegistrationForm(){
+        $cities = City::all();
+
+        return view ('auth.register')->with('cities',$cities);
     }
 }

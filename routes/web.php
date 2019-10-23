@@ -14,8 +14,9 @@
 use Illuminate\Routing\Router;
 
 
-//Auth::routes();
-//Route::get('logout', 'Auth\LoginController@logout');
+Auth::routes();
+Route::get('logout', 'Auth\LoginController@logout');
+//Route::get('/register','Auth\LoginController@')->name('register');
 
 // Route::get('/', function(){
 

@@ -51,15 +51,15 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'userEmail' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role_id'=>'required'
          ]);
         $user = new User();
-        $user->name = request('name');
-        $user->email = request('email');
-        $user->password = Hash::make(request('password'));
-        $user->role_id = request('role_id');
+        $user->userName = request('name');
+        $user->userEmail = request('userEmail');
+        $user->userPassword = Hash::make(request('password'));
+        $user->roleId = request('role_id');
         $user->save();
         return redirect()->route('edit_user',$user->id)->with('success',__('User created successfully'));
 
@@ -104,17 +104,17 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => 'required', 'string', 'email', 'max:255'.$id,
+            'userEmail' => 'required', 'string', 'email', 'max:255'.$id,
             'role_id'=>'required'
          ]);
          $user = User::find($id);
          //dd($user);
-         $user->name = request('name');
-         $user->email = request('email');
+         $user->userName = request('name');
+         $user->userEmail = request('userEmail');
          if($request->input('password') !=""){
-            $user->password = Hash::make(request('password'));
+            $user->userPassword = Hash::make(request('password'));
          }
-         $user->role_id = request('role_id');
+         $user->roleId = request('role_id');
          $user->save();
          $roles =Role::all();
 

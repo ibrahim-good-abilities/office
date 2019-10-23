@@ -16,7 +16,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+            'userName', 'userEmail', 'userPassword','roleId','cityId','userAddress','userMobile','userPhone','userJopTitle'
+            ,'userIdNum','userIdFile'
     ];
 
     /**
@@ -51,6 +52,10 @@ class User extends Authenticatable
     public function workingDays()
     {
         return $this->hasMany('App\WorkingDay');
+    }
+    public function city()
+    {
+        return $this->belongsTo('App\City');
     }
 
 }

@@ -40,9 +40,9 @@
                 @foreach ($users as $user)
                 <tr>
                     <td>{{$user->id}}</td>
-                    <td>{{ $user->name}}</td>
-                    <td>{{ $user->email}}</td>
-                    <td>{{ $user->role_name}}</td>
+                    <td>{{ $user->userName}}</td>
+                    <td>{{ $user->userEmail}}</td>
+                    <td>{{ $user->roleName}}</td>
                     <td class="center-align">
                         <a  href="{{route('edit_user',$user->id)}}">
                             <i class="material-icons">edit</i>

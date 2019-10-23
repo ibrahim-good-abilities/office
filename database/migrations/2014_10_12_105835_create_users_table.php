@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('userPhone')->nullable();
             $table->string('userIdNum')->nullable();
             $table->string('userIdFile')->nullable();
+            $table->string('userJopTitle')->nullable();
+            $table->string('userAddress')->nullable();
             $table->unsignedBigInteger('roleId');
             $table->foreign('roleId')
             ->references('id')
@@ -34,6 +36,11 @@ class CreateUsersTable extends Migration
             ->on('offices')
             ->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
+            $table->unsignedBigInteger('cityId')->nullable();
+            $table->foreign('cityId')
+            ->references('id')
+            ->on('cities')
+            ->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

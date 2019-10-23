@@ -57,9 +57,9 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="userEmail" type="email" class="form-control @error('userEmail') is-invalid @enderror" name="userEmail" value="{{ old('userEmail') }}" required autocomplete="email">
 
-                                @error('email')
+                                @error('userEmail')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -93,7 +93,7 @@
                             <select class="icons" name="role_id">
                                 <option value="" disabled selected>{{ __('Choose Role') }}</option>
                                 @foreach($roles as $role)
-                                        <option  value="{{$role->id}}"  name="role_id" class="circle"> {{$role->role_name}} </option>
+                                        <option  value="{{$role->id}}"  name="role_id" class="circle"> {{$role->roleName}} </option>
                                 @endforeach
                             </select>
                             <label>{{ __('Role') }}</label>

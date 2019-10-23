@@ -61,6 +61,7 @@ class RegisterController extends Controller
             'userPhone' => 'required',
             'userJopTitle' => 'required',
             'userIdNum' => 'required',
+            'userIdFile' =>['required','file','max:5120']
 
 
 
@@ -75,11 +76,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // $request = request();
-        // $file = $request->file('userIdFile');
-        // $name_file = time() . '.' . $file->getClientOriginalExtension();
-        // $destinationPath = public_path('/files/profile/');
-        // $file->move($destinationPath, $name_file);
+
         $request = request();
 
         $file = $request->file('userIdFile');

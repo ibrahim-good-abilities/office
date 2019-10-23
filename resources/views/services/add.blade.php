@@ -43,7 +43,7 @@
 
 
             <div class="input-name col s12">
-               <input  name="servicePrice" id="servicePrice" type="number" class="validate" placeholder="{{ __('Add Service price') }}">
+               <input  name="servicePrice" id="servicePrice" type="number" step="0.25" class="validate" placeholder="{{ __('Add Service price') }}">
                <label for="servicePrice">{{ __('Service Price') }}</label>
             </div>
 

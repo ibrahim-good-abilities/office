@@ -81,7 +81,19 @@
     "Requirement Type":"نوع الملف",
     "Add Requirement Name":"اضف اسم الملف",
     "Add Requirement Description":"اضف وصف الملف",
-    "Choose Requirement Type":"اختر نوع الملف"
+    "Choose Requirement Type":"اختر نوع الملف",
+    "Add New City":"اضف اسم المدينة",
+    "City created succesfully":"تم اضافة المدينة بنجاح",
+    "City updated successfully":"تم تعديل اسم المدينة بنجاح",
+    "City removed successfully":"تم حذف المدينة بنجاح",
+    "Office added successfully":"تم اضافة المكتب بنجاح",
+    "Office updated successfully":"تم تعديل المكتب بنجاح",
+    "Office removed successfully":"تم حذف المكتب بنجاح",
+    "Service created successfully":"تم اضافة الخدمة بنجاح",
+    "Service updated successfully":"تم تعديل الخدمة بنجاح",
+    "Service removed successfully":"تم حذف الخدمة بنجاح",
+    "Edit Service":"تعديل الخدمة"
+
 
 
 

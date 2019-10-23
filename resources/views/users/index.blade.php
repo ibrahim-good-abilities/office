@@ -43,16 +43,14 @@
                     <td>{{ $user->userName}}</td>
                     <td>{{ $user->userEmail}}</td>
                     <td>{{ $user->roleName}}</td>
-                    <td class="center-align">
+                    <td>
                         <a  href="{{route('edit_user',$user->id)}}">
                             <i class="material-icons">edit</i>
                         </a>
                         <a  class="delete-with-confirmation" href="{{route('delete_user',$user->id)}}">
                             <i class="material-icons pink-text delete-with-confirmation">clear</i>
                         </a>
-                         <a>
-                         <i class="material-icons">not_interested</i>
-                         </a>
+
                     </td>
                 </tr>
                 @endforeach

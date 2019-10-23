@@ -1,5 +1,3 @@
-
-
 <aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-light sidenav-active-square">
     <div class="brand-sidebar">
         <h1 class="logo-wrapper">
@@ -29,7 +27,6 @@
                                      <span> {{ __('Add New City') }}</span>
                                 </a>
                             </li>
-
                     </ul>
                 </div>
         </li>
@@ -47,7 +44,6 @@
                                      <span> {{ __('Add New Office') }}</span>
                                 </a>
                             </li>
-
                     </ul>
                 </div>
         </li>
@@ -65,7 +61,6 @@
                                      <span> {{ __('Add New Service') }}</span>
                                 </a>
                             </li>
-
                     </ul>
                 </div>
         </li>
@@ -92,7 +87,6 @@
                 <span class="menu-title" data-i18n="">{{ __('Users') }}</span></a>
                 <div class="collapsible-body">
                     <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-
                             <li>
                               <a class="collapsible-body" href="{{route('all_users')}}" data-i18n=""><i class="material-icons">radio_button_unchecked</i>
                                 <span>{{ __('Users') }}</span>

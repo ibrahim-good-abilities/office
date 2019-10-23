@@ -50,7 +50,7 @@ class ServiceController extends Controller
         $service->serviceTime = request('serviceTime');
         $service->save();
 
-        return redirect()->route('edit_service',$service->id)->with('success',__('service created successfully'));
+        return redirect()->route('edit_service',$service->id)->with('success',__('Service created successfully'));
     }
 
     /**

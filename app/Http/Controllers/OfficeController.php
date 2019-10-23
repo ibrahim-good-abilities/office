@@ -56,7 +56,7 @@ class OfficeController extends Controller
         $office->officeEmail = request('officeEmail');
         $office->cityId = request('cityId');
         $office->save();
-        return redirect()->route('edit_office',$office->id)->with('success',__('office Added  successfully'));
+        return redirect()->route('edit_office',$office->id)->with('success',__('Office added successfully'));
 
     }
 

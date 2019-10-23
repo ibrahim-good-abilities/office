@@ -21,11 +21,11 @@ $(document).ready(function() {
         e.preventDefault();
         var href = $(this).attr('href');
         swal({
-            title: "Are you sure?",
+            title: "هل انت متأكد؟",
             icon: 'warning',
             buttons: {
                 cancel: true,
-                delete: 'Yes, Delete It'
+                delete: 'نعم,احذفه'
             }
         }).then((willDelete) => {
             if (willDelete) {
@@ -52,7 +52,7 @@ $(document).ready(function() {
     });
 
 
-   
+
     $( "#call_captain" ).click(function(e) {
         var data = {
             '_token': $('#_order_token').val(),
@@ -60,7 +60,7 @@ $(document).ready(function() {
             'sender' : $(this).data('sender'),
         };
         $.post( base_url + "/order/send-new-notification",data, function( response ) {
-          
+
           });
     });
 
@@ -71,7 +71,7 @@ $(document).ready(function() {
             'sender' : $(this).data('sender'),
         };
         $.post( base_url + "/order/send-new-notification",data, function( response ) {
-          
+
           });
     });
 
@@ -82,7 +82,7 @@ $(document).ready(function() {
             'sender' : $(this).data('sender'),
         };
         $.post( base_url + "/order/send-new-notification",data, function( response ) {
-           
+
           });
         });
 

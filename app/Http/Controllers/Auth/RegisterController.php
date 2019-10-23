@@ -85,7 +85,7 @@ class RegisterController extends Controller
         $file = $request->file('userIdFile');
         $fileSaveAsName = time() . "-profile." .$file->getClientOriginalExtension();
         $upload_path = 'profile_files/';
-        $profile_image_url = $upload_path . $fileSaveAsName;
+        $file_url = $upload_path . $fileSaveAsName;
         $file->move($upload_path, $fileSaveAsName);
 
         return User::create([
@@ -99,7 +99,7 @@ class RegisterController extends Controller
             'userPhone' => $data['userPhone'],
             'userJopTitle' => $data['userJopTitle'],
             'userIdNum' => $data['userIdNum'],
-            'userIdFile' =>$profile_image_url
+            'userIdFile' =>$file_url
 
         ]);
     }

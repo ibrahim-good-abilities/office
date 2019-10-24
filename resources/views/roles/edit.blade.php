@@ -42,7 +42,10 @@
             </div>
 
 
-
+            <div class="input-name col s12">
+               <input  name="slug" id="slug" type="text" class="validate" placeholder="{{ __('Add Role Slug') }}" value="{{$role->slug}}">
+               <label for="slug">{{ __('Role slug') }}</label>
+            </div>
             <div class="input-field col s12">
                <button class="btn cyan waves-effect waves-light right" type="submit" name="action">{{ __('Submit') }}
                   <i class="material-icons right">send</i>

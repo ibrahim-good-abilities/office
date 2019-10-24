@@ -24,40 +24,81 @@
     </button>
 </div>
 @endif
+@if($errors->any())
+      <div class="card-alert card red lighten-5 card-content red-text">
+        <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+      </div><br />
+@endif
 <!-- orders table -->
 <table id="offices" class="subscription-table highlight">
     <thead>
         <tr>
-            <th>{{ __('#') }}</th>
+
             <th>{{ __('Office Name') }}</th>
             <th> {{ __('Office Address') }}</th>
             <th> {{ __('Office Phone') }}</th>
             <th>{{__('Office Mobile')}}</th>
             <th>{{ __('Office Email') }}</th>
             <th>{{__('City Id')}}</th>
+            <th>{{__('Admin')}}</th>
             <th>{{__('Settings')}}</th>
         </tr>
     </thead>
     <tbody>
 
         @foreach($offices as $office)
-            <tr>
-                <td>{{$office->id}}</td>
-                <td>{{$office->officeName}}</td>
-                <td>{{$office->officeAddress}}</td>
-                <td>{{$office->officePhone }}</td>
-                <td>{{$office->officeMobile}}</td>
-                <td>{{$office->officeEmail}}</td>
-                <td>{{$office->cityId}}</td>
+            <tr  data-office_id="{{$office->id}}">
+                <td>{{ $office->officeName }}</td>
+                <td>{{ $office->officeAddress }}</td>
+                <td>{{ $office->officePhone }}</td>
+                <td>{{ $office->officeMobile }}</td>
+                <td>{{ $office->officeEmail }}</td>
+                <td>{{ $office->cityId }}</td>
+                <td>
+                    {{ $office->userName }}
+                    <a class="modal-trigger" href="#changeAdmin"><i class="material-icons pink-text">person_add</i></a>
+                </td>
 
                 <td class="left-align">
                       <a href="{{route('edit_office',$office->id)}}"><i class="material-icons">visibility</i></a>
                       <a class="delete-with-confirmation" href="{{route('delete_office',$office->id)}}"><i class="material-icons pink-text">clear</i></a>
+                            <!-- add new 2 icons  -->
+                      <a href="{{route('officeEmployees',$office->id)}}"><i class="material-icons pink-text">people</i></a>
                 </td>
             </tr>
         @endforeach
     </tbody>
 </table>
+<!-- model for change admin -->
+<div id="changeAdmin" class="modal">
+  <form action="{{ route('updateAdmin') }}" method="post">
+    @csrf
+    <div class="modal-content">
+      <h4>{{ __('Change Admin') }}</h4>
+      <div class="row">
+          <div class="input-field col m12 s6">
+                <select name="admin">
+                    <option value="" disabled selected>المدراء</option>
+                    @foreach($admins as $admin)
+                        <option value="{{$admin->id}}" >{{$admin->userName}}</option>
+                    @endforeach
+                </select>
+                <label>{{__('Choose New Admin')}}</label>
+          </div>
+                 <input type="hidden" name="office_id" value=""/>
+          <div class="button-wrapper">
+                <button class="btn cyan waves-effect waves-light right" type="submit">{{ __('Change') }}
+                      <i class="material-icons right">send</i>
+                </button>
+          </div>
+        </div>
+    </div>
+  </form>
+</div>
 <!-- orders table -->
 @section('page_js')
 <script src="{{asset('resources/vendors/data-tables/js/jquery.dataTables.min.js')}}" type="text/javascript"></script>

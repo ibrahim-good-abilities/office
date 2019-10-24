@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Office;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -37,8 +38,11 @@ class RegisterController extends Controller
      */
     public function create()
     {
-        $roles =Role::all();
-        return view('users.add')->with('roles',$roles);
+        $roles = Role::all();
+        $offices = Office::all();
+        return view('users.add')
+                ->with('roles',$roles)
+                ->with('offices',$offices);
     }
 
     /**
@@ -53,13 +57,15 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'userEmail' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role_id'=>'required'
+            'role_id' => 'required',
+
          ]);
         $user = new User();
         $user->userName = request('name');
         $user->userEmail = request('userEmail');
         $user->userPassword = Hash::make(request('password'));
         $user->roleId = request('role_id');
+        $user->officeId = request('officeId');
         $user->save();
         return redirect()->route('edit_user',$user->id)->with('success',__('User created successfully'));
 
@@ -87,10 +93,12 @@ class RegisterController extends Controller
         $user = User::find($id);
 
         $roles =Role::all();
-
+        $offices = Office::all();
         return view('users/edit')
             ->with('user',$user)
-            ->with('roles',$roles);
+            ->with('roles',$roles)
+            ->with('offices',$offices);
+
     }
 
     /**
@@ -105,7 +113,8 @@ class RegisterController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'userEmail' => 'required', 'string', 'email', 'max:255'.$id,
-            'role_id'=>'required'
+            'role_id'=>'required',
+
          ]);
          $user = User::find($id);
          //dd($user);
@@ -115,6 +124,7 @@ class RegisterController extends Controller
             $user->userPassword = Hash::make(request('password'));
          }
          $user->roleId = request('role_id');
+         $user->officeId = request('officeId');
          $user->save();
          $roles =Role::all();
 

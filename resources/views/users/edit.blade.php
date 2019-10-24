@@ -99,6 +99,15 @@
                             </select>
                             <label>{{ __('Role') }}</label>
                          </div>
+                         <div class="row ">
+                            <select class="icons" name="officeId">
+                                <option value="" disabled selected>{{ __('Choose Office') }}</option>
+                                @foreach($offices as $office)
+                                        <option  value="{{$office->id}}"  name="officeId" class="circle"{{$office->id==$user->officeId?'selected':''}}> {{$office->officeName}} </option>
+                                @endforeach
+                            </select>
+                            <label>{{ __('Role') }}</label>
+                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

@@ -89,11 +89,20 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-                        <div class="item-category row ">
+                        <div class="row ">
                             <select class="icons" name="role_id">
                                 <option value="" disabled selected>{{ __('Choose Role') }}</option>
                                 @foreach($roles as $role)
                                         <option  value="{{$role->id}}"  name="role_id" class="circle"> {{$role->roleName}} </option>
+                                @endforeach
+                            </select>
+                            <label>{{ __('Role') }}</label>
+                         </div>
+                         <div class="row ">
+                            <select class="icons" name="officeId">
+                                <option value="" disabled selected>{{ __('Choose Office') }}</option>
+                                @foreach($offices as $office)
+                                        <option  value="{{$office->id}}"  name="officeId" class="circle"> {{$office->officeName}} </option>
                                 @endforeach
                             </select>
                             <label>{{ __('Role') }}</label>

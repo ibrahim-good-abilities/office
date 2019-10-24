@@ -70,7 +70,9 @@ Route::get('logout', 'Auth\LoginController@logout');
     Route::post('/offices/store','OfficeController@store')->name('store_office');
     Route::get('/offices/edit/{id}','OfficeController@edit')->name('edit_office');
     Route::post('/offices/update/{id}','OfficeController@update')->name('update_office');
-    Route::get('/offices/delete{id}','OfficeController@destroy')->name('delete_office');
+    Route::get('/offices/delete/{id}','OfficeController@destroy')->name('delete_office');
+    Route::get('/offices/employees/{officeId}','OfficeController@officeEmployee')->name('officeEmployees');
+    Route::post('/offices/updateadmin','OfficeController@updateAdmin')->name('updateAdmin');
     //services
     Route::get('/services/index','ServiceController@index')->name('all_services');
     Route::get('/services/create','ServiceController@create')->name('create_service');

@@ -93,8 +93,12 @@
     "Service updated successfully":"تم تعديل الخدمة بنجاح",
     "Service removed successfully":"تم حذف الخدمة بنجاح",
     "Edit Service":"تعديل الخدمة",
-    "Edit User":"تعديل بيانات المستخدم"
-
+    "Edit User":"تعديل بيانات المستخدم",
+    "Welcome":"الرئيسية",
+    "Admin":"المدير",
+    "Change Admin":"تغيير المدير",
+    "Choose New Admin":"اختر مدير جديد",
+    "Change":"تغيير"
 
 
 

@@ -11,7 +11,9 @@ $(function() {
         },
         columnDefs: [
             { orderable: false, targets: 7 }
-        ]
+
+        ],
+
     });
     $(document).on('click','a[href="#changeAdmin"]',function(e){
 

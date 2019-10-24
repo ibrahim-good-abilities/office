@@ -84,7 +84,7 @@
                 <select name="admin">
                     <option value="" disabled selected>المدراء</option>
                     @foreach($admins as $admin)
-                        <option value="{{$admin->id}}" >{{$admin->userName}}</option>
+                        <option value="{{ $admin->id }}" >{{$admin->userName}}</option>
                     @endforeach
                 </select>
                 <label>{{__('Choose New Admin')}}</label>

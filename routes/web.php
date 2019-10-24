@@ -15,7 +15,7 @@ use Illuminate\Routing\Router;
 
 
 Auth::routes();
-Route::get('logout', 'Auth\LoginController@logout');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 //Route::get('/register','Auth\LoginController@')->name('register');
 
 // Route::get('/', function(){
@@ -41,7 +41,7 @@ Route::get('logout', 'Auth\LoginController@logout');
 // })->name('home');
 //Route::get('/register','RegisterController@store')->name('sign_up');
 
-    Route::get('/','IndexController@index')->name('home');
+    Route::get('/','OfficeController@index')->name('home');
 
     //role
     Route::get('/role/create','RoleController@create')->name('add_role');

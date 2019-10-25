@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Response;
 use Closure;
 
-class ParistaMiddleware
+class SuperAdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,11 @@ class ParistaMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!($request->user() && $request->user()->role->role_name == 'parista'))
-            {
-                 return new Response(view('unauthorized')->with('role', 'PARISTA'));
-            }
+        if (!($request->user() && $request->user()->role->roleName == 'superadmin'))
+        {
+             return new Response(view('unauthorized')->with('role', 'SUPERADMIN'));
+        }
+        return $next($request);
         return $next($request);
     }
 }

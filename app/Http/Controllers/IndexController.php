@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\DB;
 use App\Order;
 class IndexController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     //For Index Page
     public function index()

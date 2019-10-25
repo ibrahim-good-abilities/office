@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Response;
-class CashierMiddleware
+class UserMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,10 @@ class CashierMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!($request->user() && $request->user()->role->role_name == 'cashier'))
+
+        if (!($request->user() && $request->user()->role->roleName == 'superadmin'))
         {
-             return new Response(view('unauthorized')->with('role', 'CASHIER'));
+             return new Response(view('unauthorized')->with('role', 'superadmin'));
         }
         return $next($request);
     }

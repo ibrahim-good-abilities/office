@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Middleware;
-
-use Closure;
 use Illuminate\Http\Response;
-class CaptainMiddleware
+use Closure;
+
+class EmployeeMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,9 @@ class CaptainMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!($request->user() && $request->user()->role->role_name == 'captain'))
+        if (!($request->user() && $request->user()->role->roleName == 'employee'))
         {
-             return new Response(view('unauthorized')->with('role', 'CAPTAIN'));
+             return new Response(view('unauthorized')->with('role', 'EMPLOYEE'));
         }
         return $next($request);
     }

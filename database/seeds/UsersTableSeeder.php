@@ -11,66 +11,64 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        /* 
+        /*
         Insert roles
         */
-        
+
         DB::table('roles')->insert([
-            'role_name' => 'admin',
+            'roleName' => 'superadmin',
+            'slug' =>'superadmin'
         ]);
         DB::table('roles')->insert([
-            'role_name' => 'captain',
+            'roleName' => 'admin',
+            'slug' =>'admin'
         ]);
 
         DB::table('roles')->insert([
-            'role_name' => 'cashier',
+            'roleName' => 'employee',
+            'slug' =>'employee'
+
         ]);
 
         DB::table('roles')->insert([
-            'role_name' => 'customer',
+            'roleName' => 'user',
+            'slug' =>'user'
+
         ]);
 
-        DB::table('roles')->insert([
-            'role_name' => 'parista',
-        ]);
 
-        /* 
+        /*
         Insert Users
         */
 
         DB::table('users')->insert([
-            'name' => 'admin',
-            'email' => 'admin@domain.com',
-            'password' => bcrypt('123456789'),
-            'role_id'=>1
+            'userName' => 'superadmin',
+            'userEmail' => 'superadmin@domain.com',
+            'userPassword' => bcrypt('123456789'),
+            'roleId'=>1
         ]);
 
         DB::table('users')->insert([
-            'name' => 'captain',
-            'email' => 'captain@domain.com',
-            'password' => bcrypt('123456789'),
-            'role_id'=>2
+            'userName' => 'admin',
+            'userEmail' => 'admin@domain.com',
+            'userPassword' => bcrypt('123456789'),
+            'roleId'=>2
         ]);
 
         DB::table('users')->insert([
-            'name' => 'cashier',
-            'email' => 'cashier@domain.com',
-            'password' => bcrypt('123456789'),
-            'role_id'=>3
+            'userName' => 'employee',
+            'userEmail' => 'employee@domain.com',
+            'userPassword' => bcrypt('123456789'),
+            'roleId'=>3
         ]);
 
         DB::table('users')->insert([
-            'name' => 'customer',
-            'email' => 'customer@domain.com',
-            'password' => bcrypt('123456789'),
-            'role_id'=>4
+            'userName' => 'user',
+            'userEmail' => 'user@domain.com',
+            'userPassword' => bcrypt('123456789'),
+            'roleId'=>4
         ]);
 
-        DB::table('users')->insert([
-            'name' => 'parista',
-            'email' => 'parista@domain.com',
-            'password' => bcrypt('123456789'),
-            'role_id'=>5
-        ]);
+
     }
 }

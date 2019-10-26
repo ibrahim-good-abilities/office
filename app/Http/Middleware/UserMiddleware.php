@@ -16,9 +16,9 @@ class UserMiddleware
     public function handle($request, Closure $next)
     {
 
-        if (!($request->user() && $request->user()->role->roleName == 'superadmin'))
+        if (!($request->user() && $request->user()->role->roleName == 'user'))
         {
-             return new Response(view('unauthorized')->with('role', 'superadmin'));
+             return new Response(view('unauthorized')->with('role', 'user'));
         }
         return $next($request);
     }

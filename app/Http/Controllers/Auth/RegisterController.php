@@ -52,8 +52,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'userName' => ['required', 'string', 'max:255'],
-            'userEmail' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'cityId' => 'required',
             'userAddress' => 'required',
@@ -86,9 +86,9 @@ class RegisterController extends Controller
         $file->move($upload_path, $fileSaveAsName);
 
         return User::create([
-            'userName' => $data['userName'],
-            'userEmail' => $data['userEmail'],
-            'userPassword' => Hash::make(($data['password'])),
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make(($data['password'])),
             'cityId' => $data['cityId'],
             'roleId' => 1,
             'userAddress' => $data['userAddress'],

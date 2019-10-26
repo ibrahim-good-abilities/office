@@ -55,15 +55,15 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'userEmail' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role_id' => 'required',
 
          ]);
         $user = new User();
-        $user->userName = request('name');
-        $user->userEmail = request('userEmail');
-        $user->userPassword = Hash::make(request('password'));
+        $user->name = request('name');
+        $user->email = request('email');
+        $user->password = Hash::make(request('password'));
         $user->roleId = request('role_id');
         $user->officeId = request('officeId');
         $user->save();
@@ -112,16 +112,16 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'userEmail' => 'required', 'string', 'email', 'max:255'.$id,
+            'email' => 'required', 'string', 'email', 'max:255'.$id,
             'role_id'=>'required',
 
          ]);
          $user = User::find($id);
          //dd($user);
-         $user->userName = request('name');
-         $user->userEmail = request('userEmail');
+         $user->name = request('name');
+         $user->email = request('email');
          if($request->input('password') !=""){
-            $user->userPassword = Hash::make(request('password'));
+            $user->password = Hash::make(request('password'));
          }
          $user->roleId = request('role_id');
          $user->officeId = request('officeId');

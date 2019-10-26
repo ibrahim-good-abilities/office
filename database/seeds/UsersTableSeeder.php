@@ -16,22 +16,22 @@ class UsersTableSeeder extends Seeder
         */
 
         DB::table('roles')->insert([
-            'roleName' => 'superadmin',
+            'roleName' => 'Superadmin',
             'slug' =>'superadmin'
         ]);
         DB::table('roles')->insert([
-            'roleName' => 'admin',
+            'roleName' => 'Admin',
             'slug' =>'admin'
         ]);
 
         DB::table('roles')->insert([
-            'roleName' => 'employee',
+            'roleName' => 'Employee',
             'slug' =>'employee'
 
         ]);
 
         DB::table('roles')->insert([
-            'roleName' => 'user',
+            'roleName' => 'User',
             'slug' =>'user'
 
         ]);
@@ -42,30 +42,30 @@ class UsersTableSeeder extends Seeder
         */
 
         DB::table('users')->insert([
-            'userName' => 'superadmin',
-            'userEmail' => 'superadmin@domain.com',
-            'userPassword' => bcrypt('123456789'),
+            'name' => 'superadmin',
+            'email' => 'superadmin@domain.com',
+            'password' => bcrypt('123456789'),
             'roleId'=>1
         ]);
 
         DB::table('users')->insert([
-            'userName' => 'admin',
-            'userEmail' => 'admin@domain.com',
-            'userPassword' => bcrypt('123456789'),
+            'name' => 'admin',
+            'email' => 'admin@domain.com',
+            'password' => bcrypt('123456789'),
             'roleId'=>2
         ]);
 
         DB::table('users')->insert([
-            'userName' => 'employee',
-            'userEmail' => 'employee@domain.com',
-            'userPassword' => bcrypt('123456789'),
+            'name' => 'employee',
+            'email' => 'employee@domain.com',
+            'password' => bcrypt('123456789'),
             'roleId'=>3
         ]);
 
         DB::table('users')->insert([
-            'userName' => 'user',
-            'userEmail' => 'user@domain.com',
-            'userPassword' => bcrypt('123456789'),
+            'name' => 'user',
+            'email' => 'user@domain.com',
+            'password' => bcrypt('123456789'),
             'roleId'=>4
         ]);
 

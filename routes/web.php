@@ -15,35 +15,31 @@ use Illuminate\Routing\Router;
 
 
 Auth::routes();
-
-//Route::get('/register','Auth\LoginController@')->name('register');
-
-// Route::get('/', function(){
-
-//             if(auth()->user()){
-//                 if (auth()->user()->role->roleName == 'superadmin') {
-//                     return redirect()->route('all_offices');
-//                 }elseif (auth()->user()->role->roleName == 'admin') {
-//                     return redirect()->route('all_offices');
-//                 }elseif (auth()->user()->role->roleName == 'employee') {
-//                     return redirect()->route('employeeTickets');
-//                 }elseif (auth()->user()->role->roleName == 'user') {
-//                     return redirect()->route('userTickets');
-//                 }else{
-//                     return redirect('/login');
-//                 }
-//             }else{
-//                 return redirect('/login');
-//             }
-// })->name('home');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-//Route::get('/register','RegisterController@store')->name('sign_up');
+Route::get('/', function(){
+            if(auth()->user()){
+                
+                if (auth()->user()->role->slug == 'superadmin') {
+                    return redirect()->route('all_offices');
+                }elseif (auth()->user()->role->slug == 'admin') {
+                    return redirect()->route('tickets');
+                }elseif (auth()->user()->role->slug == 'employee') {
+                    return redirect()->route('employeeTickets');
+                }elseif (auth()->user()->role->slug == 'user') {
+                    return redirect()->route('userTickets');
+                }else{
+                    return redirect('/login');
+                }
+            }
+            return redirect('/login');
+})->name('home');
 
+// Route::get('/register','RegisterController@store')->name('sign_up');
 
 Route::group(['middleware' => 'App\Http\Middleware\SuperAdminMiddleware'], function(){
 
         //home
-        Route::get('/','OfficeController@index')->name('home');
+        Route::get('/offices','OfficeController@index')->name('dashboard');
         //role
         Route::get('/role/create','RoleController@create')->name('add_role');
         Route::post('/role/store','RoleController@store')->name('store_role');

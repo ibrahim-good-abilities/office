@@ -40,8 +40,8 @@
                 @foreach ($users as $user)
                 <tr>
                     <td>{{$user->id}}</td>
-                    <td>{{ $user->userName}}</td>
-                    <td>{{ $user->userEmail}}</td>
+                    <td>{{ $user->name}}</td>
+                    <td>{{ $user->email}}</td>
                     <td>{{ $user->roleName}}</td>
                     <td>
                         <a  href="{{route('edit_user',$user->id)}}">

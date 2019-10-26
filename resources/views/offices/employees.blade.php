@@ -40,8 +40,8 @@
                 @foreach ($employees as $employee)
                 <tr>
                     <td>{{$employee->id}}</td>
-                    <td>{{ $employee->userName}}</td>
-                    <td>{{ $employee->userEmail}}</td>
+                    <td>{{ $employee->name}}</td>
+                    <td>{{ $employee->email}}</td>
                     <td>{{ $employee->roleName}}</td>
                     <td>
                         <a  href="{{route('edit_user',$employee->id)}}">

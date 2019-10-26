@@ -15,7 +15,7 @@ class EmployeeMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!($request->user() && $request->user()->role->roleName == 'employee'))
+        if ( (!($request->user())) || $request->user()->role->slug != 'employee')
         {
              return new Response(view('unauthorized')->with('role', 'EMPLOYEE'));
         }

@@ -23,7 +23,7 @@ class OfficeController extends Controller
     {
         $offices =DB::table('offices')
         ->leftJoin('users','users.id','=','offices.officeAdminId')
-        ->select('offices.*','users.userName')
+        ->select('offices.*','users.name')
         ->get();
 
         $admins = DB::table('users')

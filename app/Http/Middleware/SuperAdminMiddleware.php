@@ -15,11 +15,10 @@ class SuperAdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!($request->user() && $request->user()->role->roleName == 'superadmin'))
+        if ( (!($request->user())) || $request->user()->role->slug != 'superadmin')
         {
              return new Response(view('unauthorized')->with('role', 'SUPERADMIN'));
         }
-        return $next($request);
         return $next($request);
     }
 }

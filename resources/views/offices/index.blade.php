@@ -59,7 +59,7 @@
                 <td>{{ $office->officeEmail }}</td>
                 <td>{{ $office->cityId }}</td>
                 <td>
-                    {{ $office->userName }}
+                    {{ $office->name }}
                     <a class="modal-trigger" href="#changeAdmin"><i class="material-icons pink-text">person_add</i></a>
                 </td>
 
@@ -84,7 +84,7 @@
                 <select name="admin">
                     <option value="" disabled selected>المدراء</option>
                     @foreach($admins as $admin)
-                        <option value="{{ $admin->id }}" >{{$admin->userName}}</option>
+                        <option value="{{ $admin->id }}" >{{$admin->name}}</option>
                     @endforeach
                 </select>
                 <label>{{__('Choose New Admin')}}</label>

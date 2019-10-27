@@ -11,14 +11,15 @@
 |
  */
 
+
 use Illuminate\Routing\Router;
 
 
-Auth::routes();
+Auth::routes(['register' => false]);
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/', function(){
             if(auth()->user()){
-                
+
                 if (auth()->user()->role->slug == 'superadmin') {
                     return redirect()->route('all_offices');
                 }elseif (auth()->user()->role->slug == 'admin') {
@@ -89,13 +90,19 @@ Route::group(['middleware' => 'App\Http\Middleware\SuperAdminMiddleware'], funct
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function(){
         Route::get('assign/ticket','OfficeController@ticketToEmployee')->name('assignTicket');
         Route::get('/tickets','TicketController@index')->name('tickets');
+        //settings
+        Route::get('/settings','OfficeController@settings')->name('settings');
+        Route::post('/settings/store','OfficeController@storeSettings')->name('storeSettings');
+        //
+        Route::get('/offices/employees/{officeId}','OfficeController@officeEmployee')->name('officeEmployees');
+
 });
 
 Route::group(['middleware' => 'App\Http\Middleware\EmployeeMiddleware'], function(){
-    Route::get('/employee/tickets','TicketController@employeeTickets')->name('employeeTickets');
+         Route::get('/employee/tickets','TicketController@employeeTickets')->name('employeeTickets');
 });
 Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function(){
-    Route::get('/user/tickets','TicketController@userTickets')->name('userTickets');
+         Route::get('/user/tickets','TicketController@userTickets')->name('userTickets');
 });
 
 

@@ -98,7 +98,12 @@
     "Admin":"المدير",
     "Change Admin":"تغيير المدير",
     "Choose New Admin":"اختر مدير جديد",
-    "Change":"تغيير"
+    "Change":"تغيير",
+    "Service Descrption":"وصف الخدمة",
+    "Service Cancelation Time":"الوقت المسموح لإلغاء الخدمة",
+    "Service Allowed Cancel Time":" الوقت المسموح لإلغاء الخدمة",
+    "Add Service Description":"اضف وصف الخدمة",
+    "Add Service  Cancel Time":"اضف الوقت المسموح لالغاء الخدمة"
 
 
 

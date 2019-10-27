@@ -13,7 +13,10 @@
     </div>
 
     <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
-            <li class="bold">
+    @if(Auth::user()->role->slug == 'superadmin')
+
+        <li class="bold">
+
                 <a class="waves-effect waves-cyan " href="{{route('home')}}"><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">{{ __('Welcome') }}</span></a>
             </li>
             <li class="bold"><a class="collapsible-header waves-effect waves-cyan" href="javascript:void(0)"><i class="material-icons">playlist_add_check</i>
@@ -102,4 +105,27 @@
                 </div>
         </li>
     </ul>
+    @endif
+    @if(Auth::user()->role->slug == 'admin')
+        <li class="bold"><a class="collapsible-header waves-effect waves-cyan" href="javascript:void(0)"><i class="material-icons">people</i>
+                    <span class="menu-title" data-i18n="">{{ __('Office') }}</span></a>
+                    <div class="collapsible-body">
+                        <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                                <li>
+                                    <a class="collapsible-body" href="#" data-i18n=""><i class="material-icons">radio_button_unchecked</i>
+                                    <span>{{ __('Office') }}</span>
+                                </a>
+                                </li>
+
+                        </ul>
+                    </div>
+            </li>
+    @endif
+    @if(Auth::user()->role->slug == 'employee')
+
+    @endif
+    @if(Auth::user()->role->slug == 'user')
+
+    @endif
+
 </aside>

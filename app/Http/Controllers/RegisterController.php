@@ -113,7 +113,7 @@ class RegisterController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => 'required', 'string', 'email', 'max:255'.$id,
-            'role_id'=>'required',
+            'role_id'=>'required'
 
          ]);
          $user = User::find($id);
@@ -128,9 +128,8 @@ class RegisterController extends Controller
          $user->save();
          $roles =Role::all();
 
-         return view('users.edit')
-         ->with('user',$user)
-         ->with('roles',$roles);
+         return redirect()->route('edit_user',$user->id)->with('success','User updated successfully');
+
     }
 
     /**

@@ -35,7 +35,9 @@
                 </ul> -->
                 <!-- profile-dropdown-->
                 <ul class="dropdown-content" id="profile-dropdown">
-                    <!-- <li><a class="grey-text text-darken-1" href="#"><i class="material-icons">settings</i>{{__('Settings')}}</a></li> -->
+                @if(Auth::user()->role->slug == 'admin')
+                    <li><a class="grey-text text-darken-1" href="{{route('settings')}}"><i class="material-icons">settings</i>{{__('Settings')}}</a></li>
+                @endif
                     <li><a class="grey-text text-darken-1" href=" {{route('logout')}} "><i class="material-icons">keyboard_tab</i>{{__('Logout')}}</a></li>
                 </ul>
             </div>

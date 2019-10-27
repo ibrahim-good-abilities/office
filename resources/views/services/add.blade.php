@@ -51,7 +51,14 @@
                <input  name="serviceTime" id="serviceTime" type="text" class="validate" placeholder="{{ __('Add Service Time') }}">
                <label for="serviceTime">{{ __('Service Time') }}</label>
             </div>
-
+            <div class="input-name col s12">
+               <input  name="serviceDescription" id="serviceDescription" type="text" class="validate" placeholder="{{ __('Add Service Description') }}">
+               <label for="serviceDescription">{{ __('Service Descrption') }}</label>
+            </div>
+            <div class="input-name col s12">
+               <input  name="serviceAllowedCancelTime" id="serviceAllowedCancelTime" type="text" class="validate" placeholder="{{ __('Add Service  Cancel Time') }}">
+               <label for="serviceAllowedCancelTime">{{ __('Service Cancelation Time') }}</label>
+            </div>
             <div class="input-field col s12">
                <button class="btn cyan waves-effect waves-light right" type="submit" name="action">{{ __('Submit') }}
                   <i class="material-icons right">send</i>

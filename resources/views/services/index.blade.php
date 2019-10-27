@@ -32,6 +32,8 @@
             <th>{{ __('Service Name') }}</th>
             <th> {{ __('Service Price') }}</th>
             <th> {{ __('Service Time') }}</th>
+            <th> {{ __('Service Descrption') }}</th>
+            <th> {{ __('Service Allowed Cancel Time') }}</th>
             <th>{{__('Settings')}}</th>
         </tr>
     </thead>
@@ -39,10 +41,13 @@
 
         @foreach($services as $service)
             <tr>
-                <td>{{$service->id}}</td>
-                <td>{{$service->serviceName}}</td>
-                <td>{{$service->servicePrice}}</td>
-                <td>{{$service->serviceTime }}</td>
+                <td>{{ $service->id }}</td>
+                <td>{{ $service->serviceName }}</td>
+                <td>{{ $service->servicePrice }}</td>
+                <td>{{ $service->serviceTime }}</td>
+                <td>{{ $service->serviceDescription }}</td>
+                <td>{{ $service->serviceAllowedCancelTime }}</td>
+
 
                 <td class="left-align">
                       <a href="{{route('edit_service',$service->id)}}"><i class="material-icons">visibility</i></a>

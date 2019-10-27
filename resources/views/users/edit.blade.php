@@ -91,22 +91,24 @@
                         </div>
 
 
-                        <div class="item-category row ">
+                        <div class="item-category row">
                             <select class="icons" name="role_id">
+                                <option value="" disabled selected>{{ __('Choose Role') }}</option>
+
                                 @foreach($roles as $role)
-                                        <option  value="{{$role->id}}"  name="role_id" class="circle"{{$role->id==$user->role_id?'selected':''}}> {{$role->roleName}} </option>
+                                        <option  value="{{$role->id}}"   class="circle"{{$role->id==$user->roleId?'selected':''}}> {{$role->roleName}} </option>
                                 @endforeach
                             </select>
                             <label>{{ __('Role') }}</label>
                          </div>
                          <div class="row ">
-                            <select class="icons" name="officeId">
+                            <select class="icons"  name="officeId">
                                 <option value="" disabled selected>{{ __('Choose Office') }}</option>
                                 @foreach($offices as $office)
-                                        <option  value="{{$office->id}}"  name="officeId" class="circle"{{$office->id==$user->officeId?'selected':''}}> {{$office->officeName}} </option>
+                                        <option  value="{{$office->id}}" class="circle"{{$office->id==$user->officeId?'selected':''}}> {{$office->officeName}} </option>
                                 @endforeach
                             </select>
-                            <label>{{ __('Role') }}</label>
+                            <label>{{ __('Office') }}</label>
                          </div>
 
                         <div class="form-group row mb-0">

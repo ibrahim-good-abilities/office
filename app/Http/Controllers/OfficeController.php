@@ -71,6 +71,8 @@ class OfficeController extends Controller
         $office->officePhone  = request('officePhone');
         $office->officeMobile  = request('officeNumber');
         $office->officeEmail = request('officeEmail');
+
+
         $office->cityId = request('cityId');
         $office->save();
         return redirect()->route('edit_office',$office->id)->with('success',__('Office added successfully'));
@@ -125,6 +127,8 @@ class OfficeController extends Controller
         $office->officePhone  = request('officePhone');
         $office->officeMobile  = request('officeNumber');
         $office->officeEmail = request('officeEmail');
+        $office->officeStartTime=2;
+
         $office->cityId = request('cityId');
         $office->save();
         return redirect()->back()->with('success',__('Office updated successfully'));
@@ -168,5 +172,23 @@ class OfficeController extends Controller
         $office->officeAdminId =  request('admin');
         $office->save();
         return redirect()->back();
+    }
+    public function settings()
+    {
+        return view('offices.settings');
+    }
+
+    public function storeSettings(Request $request)
+    {
+        $request->validate([
+            'officeStartTime'=>'required',
+            'officeBreak'=>'required',
+            'officeEndTime'=>'required'
+
+        ]);
+        $officeId =Auth::user()->officeId;
+
+
+
     }
 }

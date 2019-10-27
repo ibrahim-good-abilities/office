@@ -52,6 +52,9 @@ class ServiceController extends Controller
         $service->serviceName = request('serviceName');
         $service->servicePrice = request('servicePrice');
         $service->serviceTime = request('serviceTime');
+        $service->serviceDescription =request('serviceDescription');
+        $service->serviceAllowedCancelTime =request('serviceAllowedCancelTime');
+
         $service->save();
 
         return redirect()->route('edit_service',$service->id)->with('success',__('Service created successfully'));

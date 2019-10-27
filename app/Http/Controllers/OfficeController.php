@@ -205,7 +205,7 @@ class OfficeController extends Controller
         $office->officeEndTime = request('officeEndTime');
         $office->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success','Office updates successfully');
 
 
     }

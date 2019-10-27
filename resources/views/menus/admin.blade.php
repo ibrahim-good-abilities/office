@@ -6,12 +6,12 @@
         <div class="collapsible-body">
             <ul class="collapsible collapsible-sub" data-collapsible="accordion">
                     <li>
-                        <a class="collapsible-body" href="#" data-i18n=""><i class="material-icons">list</i>
+                        <a class="collapsible-body" href="{{route('working-days.index')}}" data-i18n=""><i class="material-icons">list</i>
                             <span>{{ __('Show All') }}</span>
                         </a>
                     </li>
                     <li>
-                        <a class="collapsible-body" href="#" data-i18n=""><i class="material-icons">alarm_add</i>
+                        <a class="collapsible-body" href="{{route('working-days.create')}}" data-i18n=""><i class="material-icons">alarm_add</i>
                             <span>{{ __('Add New') }}</span>
                         </a>
                     </li>

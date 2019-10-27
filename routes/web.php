@@ -88,14 +88,10 @@ Route::group(['middleware' => 'App\Http\Middleware\SuperAdminMiddleware'], funct
 
 
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function(){
-        Route::get('assign/ticket','OfficeController@ticketToEmployee')->name('assignTicket');
-        Route::get('/tickets','TicketController@index')->name('tickets');
-        //settings
         Route::get('/settings','OfficeController@settings')->name('settings');
         Route::post('/settings/store','OfficeController@storeSettings')->name('storeSettings');
-        //
-        Route::get('/offices/employees/{officeId}','OfficeController@officeEmployee')->name('officeEmployees');
-
+        Route::get('/tickets','TicketController@index')->name('tickets');
+        Route::resource('working-days', 'WorkingDayController');
 });
 
 Route::group(['middleware' => 'App\Http\Middleware\EmployeeMiddleware'], function(){

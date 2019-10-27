@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\WorkingDay;
 
 class WorkingDayController extends Controller
 {
@@ -17,7 +18,8 @@ class WorkingDayController extends Controller
      */
     public function index()
     {
-        //
+        $working_days = WorkingDay::all();
+        return view('schedule.working_days')->with('working_days',$working_days);
     }
 
     /**
@@ -27,7 +29,7 @@ class WorkingDayController extends Controller
      */
     public function create()
     {
-        //
+        return view('schedule.add_work_day');
     }
 
     /**

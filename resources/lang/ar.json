@@ -45,22 +45,23 @@
     "Back": "الرجوع",
     "Offices": "المكاتب",
     "All Offices": "كل المكاتب",
-    "Office Id": "رقم المكتب",
-    "Office Name": "اسم المكتب",
-    "Office Address": "عنوان المكتب",
-    "Office Phone": "تليفون المكتب",
-    "Office Mobile": "هاتف المكتب",
+    "Office Id": "رقم الفرع",
+    "Office Name": "اسم الفرع",
+    "Office Address": "عنوان الفرع",
+    "Office Phone": "تليفون الفرع",
+    "Office Mobile": "هاتف الفرع",
+
     "Office Email": "الايميل الالكتروني",
-    "Add Office": "اضافة مكتب",
-    "Add Office Name": "اضف اسم المكتب",
-    "Add Office Address": "اضف عنوان المكتب",
-    "Add Office Phone": "اضف تليفون المكتب",
-    "Add Office Mobile": "اضف هاتف المكتب",
+    "Add Office": "اضافة الفرع",
+    "Add Office Name": "اضف اسم الفرع",
+    "Add Office Address": "اضف عنوان الفرع",
+    "Add Office Phone": "اضف تليفون الفرع",
+    "Add Office Mobile": "اضف هاتف الفرع",
     "Add Office Email": "اضف الايميل الالكتروني",
     "Choose City": "اختر المدينة",
-    "Edit Office": "تعديل المكتب",
+    "Edit Office": "تعديل الفرع",
     "Add New Service": "اضافة خدمة جديدة",
-    "Add New Office": "اضافة مكتب جديد",
+    "Add New Office": "اضافة فرع جديد",
     "All Services": "كل الخدمات",
     "Services": " الخدمات",
     "Add Service": "اضافة خدمة",
@@ -81,9 +82,9 @@
     "City created succesfully": "تم اضافة المدينة بنجاح",
     "City updated successfully": "تم تعديل اسم المدينة بنجاح",
     "City removed successfully": "تم حذف المدينة بنجاح",
-    "Office added successfully": "تم اضافة المكتب بنجاح",
-    "Office updated successfully": "تم تعديل المكتب بنجاح",
-    "Office removed successfully": "تم حذف المكتب بنجاح",
+    "Office added successfully": "تم اضافة الفرع بنجاح",
+    "Office updated successfully": "تم تعديل الفرع بنجاح",
+    "Office removed successfully": "تم حذف الفرع بنجاح",
     "Service created successfully": "تم اضافة الخدمة بنجاح",
     "Service updated successfully": "تم تعديل الخدمة بنجاح",
     "Service removed successfully": "تم حذف الخدمة بنجاح",
@@ -99,8 +100,24 @@
     "Service Allowed Cancel Time": " الوقت المسموح لإلغاء الخدمة",
     "Add Service Description": "اضف وصف الخدمة",
     "Add Service  Cancel Time": "اضف الوقت المسموح لالغاء الخدمة",
+    "Office Settings": "اعدادت الفرع",
+    "Office Start Time": "وقت بداية العمل في الفرع",
+    "Office Break": "وقت الراحة في الفرع",
+    "Office End Time": "وقت انتهاء العمل في الفرع",
+    "Add Office Start Time": "اضف وقت بدايه العمل ",
+    "Add Office End Time": "اضف وقت انتهاء العمل",
+    "Add Office Break": "اضف وقت انتهاء العمل ",
+    "Tickets": "تذاكر",
     "Working Days": "أيام العمل",
     "Show All": "عرض الجميع",
     "Add New": "أضافة",
     "Main": "الرئيسية"
+
+
+
+
+
+
+
+
 }

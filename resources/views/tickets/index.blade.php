@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', __('All Offices'))
+@section('title', __('All tickets'))
 @section('page_css')
 <link rel="stylesheet" type="text/css" href="{{asset('resources/vendors/data-tables/css/jquery.dataTables.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('resources/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css')}}">

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Office;
 use App\City;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class OfficeController extends Controller
@@ -167,15 +168,24 @@ class OfficeController extends Controller
             'office_id' => 'required',
             'admin' =>'required'
         ]);
-        $office_id=request('office_id');
+        $office_id = request('office_id');
         $office = Office::find($office_id);
         $office->officeAdminId =  request('admin');
         $office->save();
+
+        $userId = request('admin');
+        $user = User::find($userId);
+        $user->officeId =  request('office_id');
+
+
+        $user->save();
         return redirect()->back();
     }
     public function settings()
     {
-        return view('offices.settings');
+        $officeId = Auth::user()->office->id;
+        $office = Office::find($officeId);
+        return view('offices.settings')->with('office',$office);
     }
 
     public function storeSettings(Request $request)
@@ -186,8 +196,16 @@ class OfficeController extends Controller
             'officeEndTime'=>'required'
 
         ]);
-        $officeId =Auth::user()->officeId;
+        $officeId =Auth::user()->office->id;
 
+        $office = Office::find($officeId);
+
+        $office->officeStartTime = request('officeStartTime');
+        $office->officeBreak = request('officeBreak');
+        $office->officeEndTime = request('officeEndTime');
+        $office->save();
+
+        return redirect()->back()->with('success','Office updated successfully');
 
 
     }

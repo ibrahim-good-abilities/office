@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title',  __('Office Setting'))
+@section('title',  __('Office Settings'))
 @section('page_css')
 @endsection
 

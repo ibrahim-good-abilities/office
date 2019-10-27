@@ -43,7 +43,7 @@ class User extends Authenticatable
     }
     public function office()
     {
-        return $this->belongsTo('App\Office');
+        return $this->belongsTo('App\Office','officeId');
     }
     public function tickets()
     {

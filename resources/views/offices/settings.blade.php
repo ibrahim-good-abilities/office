@@ -32,24 +32,30 @@
         </ul>
       </div><br />
 @endif
-<form action="#" method="post" enctype="multipart/form-data" >
+<form action="{{route('storeSettings')}}" method="post" enctype="multipart/form-data" >
    @csrf
 
          <div class="row">
             <div class="input-name col s12">
-               <input  name="officeStartTime" id="officeStartTime" type="text" class="validate" placeholder="{{ __('Add Office Start Time') }}">
+               <input  name="officeStartTime" id="officeStartTime" type="text" class="validate" value="{{$office->officeStartTime}}" placeholder="{{ __('Add Office Start Time') }}">
                <label for="officeStartTime">{{ __('Office Start Time') }}</label>
             </div>
 
 
             <div class="input-name col s12">
-               <input  name="officeBreak" id="officeBreak" type="text" class="validate" placeholder="{{ __('Add Office Break') }}">
+               <input  name="officeBreak" id="officeBreak" type="text" class="validate"value="{{$office->officeBreak}}" placeholder="{{ __('Add Office Break') }}">
                <label for="officeBreak">{{ __('Office Break') }}</label>
             </div>
 
             <div class="input-name col s12">
-               <input  name="officeEndTime" id="officeEndTime" type="text" class="validate" placeholder="{{ __('Add Office End Time') }}">
+               <input  name="officeEndTime" id="officeEndTime" type="text" class="validate" value="{{$office->officeEndTime}}"placeholder="{{ __('Add Office End Time') }}">
                <label for="officeEndTime">{{ __('Office End Time') }}</label>
+            </div>
+
+            <div class="input-field col s12">
+               <button class="btn cyan waves-effect waves-light right" type="submit" name="action">{{ __('Submit') }}
+                  <i class="material-icons right">send</i>
+               </button>
             </div>
          </div>
 

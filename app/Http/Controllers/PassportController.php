@@ -35,13 +35,13 @@ class PassportController extends Controller
         $user = new User();
         $file = $request->file('userIdFile');
         $fileSaveAsName = time() . "usersFiles." .$file->getClientOriginalExtension();
-        $upload_path = 'usersFiles/Id';
+        $upload_path = public_path('/usersFiles/Id/');
         $file_url = $upload_path . $fileSaveAsName;
         $file->move($upload_path, $fileSaveAsName);
         //profile picture upload
         $file = $request->file('userProfilePicture');
         $fileSaveName = time() . "usersFiles." .$file->getClientOriginalExtension();
-        $uploadPath = 'usersFiles/profilePicture';
+        $uploadPath = public_path('/usersFiles/profilePicture/');
         $profilePicture = $uploadPath . $fileSaveName;
         $file->move($uploadPath, $fileSaveName);
 

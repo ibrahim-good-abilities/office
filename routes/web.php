@@ -92,6 +92,7 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
         Route::post('/settings/store','OfficeController@storeSettings')->name('storeSettings');
         Route::get('/tickets','TicketController@index')->name('tickets');
         Route::resource('working-days', 'WorkingDayController');
+        Route::resource('schedule', 'ScheduleController');
         Route::get('/working-days/delete/{id}','WorkingDayController@destroy')->name('delete_working_day');
 });
 

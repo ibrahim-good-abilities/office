@@ -1,6 +1,8 @@
 @extends('layout')
 @section('title',  __('Edit New Work Day'))
 @section('page_css')
+<link rel="stylesheet" type="text/css" href="{{asset('resources/vendors/data-tables/css/jquery.dataTables.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('resources/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css')}}">
 @endsection
 
 @section('settings')
@@ -48,7 +50,39 @@
         </div>
     </div>
 </form>
+<h4 class="center-align">{{ __('Work Schedule') }}</h4>
+<table id="schedule" class="display">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>{{ __('Employee') }}</th>
+            <th>{{ __('Available') }}</th>
+            <th>{{ __('Start Time') }}</th>
+            <th>{{ __('End Time') }}</th>
+            <th>{{ __('Settings') }}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach ($schedule_list as $schedule)
+        <tr>
+            <td>{{$loop->iteration}}</td>
+            <td>{{$schedule->employee}}</td>
+            <td>{{$schedule->available}}</td>
+            <td>{{$schedule->start_time}}</td>
+            <td>{{$schedule->end_time}}</td>
+            <td>
+                <a  href="{{ route('schedule.edit',$schedule->id) }}">
+                    <i class="material-icons">edit</i>
+                </a>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 @section('page_js')
-<script src="{{ asset('resources/js/add_working_day.js')}}" type="text/javascript"></script>
+<script src="{{asset('resources/vendors/data-tables/js/jquery.dataTables.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('resources/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js')}}" type="text/javascript"></script>
+<script src="{{ asset('resources/js/edit_working_day.js')}}" type="text/javascript"></script>
 @endsection
 @endsection

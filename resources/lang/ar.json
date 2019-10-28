@@ -119,5 +119,12 @@
     "Working day created successfully": "تم تسجيل يوم عمل جديد بنجاح",
     "Working day already created": "يوم العمل مسجل بالفعل",
     "Working day removed successfully": "تم حذف يوم العمل بنجاح",
-    "Working updated successfully": "تم تعديل يوم العمل بنجاح"
+    "Working updated successfully": "تم تعديل يوم العمل بنجاح",
+    "Work Schedule": "جدول العمل",
+    "Employee": "الموظف",
+    "Available": "متاح",
+    "Start Time": "وقت البداية",
+    "End Time": "وقت النهاية",
+    "Edit Schedule": "تعديل موعد عمل",
+    "Schedule updated successfully": "تم تعديل الموعد بنجاح"
 }

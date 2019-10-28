@@ -97,7 +97,13 @@ class WorkingDayController extends Controller
     public function edit($id)
     {
         $working_day = WorkingDay::find($id);
-        return view('schedule.edit_work_day')->with('working_day',$working_day);
+        $schedule_list =DB::table('schedule')
+        ->where('schedule.workDayId',$id)
+        ->join('users','users.id','=','schedule.userId')
+        ->join('working_days','working_days.id','=','schedule.workDayId')
+        ->select('schedule.id','schedule.available','schedule.startTime as start_time','schedule.endTime as end_time','working_days.date','users.name as employee')
+        ->get();
+        return view('schedule.edit_work_day')->with('working_day',$working_day)->with('schedule_list',$schedule_list);
     }
 
     /**

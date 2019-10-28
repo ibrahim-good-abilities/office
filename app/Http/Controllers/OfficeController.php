@@ -24,7 +24,8 @@ class OfficeController extends Controller
     {
         $offices =DB::table('offices')
         ->leftJoin('users','users.id','=','offices.officeAdminId')
-        ->select('offices.*','users.name')
+        ->join('cities','cities.id','=','offices.cityId')
+        ->select('offices.*','users.name','cities.cityName')
         ->get();
 
         $admins = DB::table('users')
@@ -32,7 +33,7 @@ class OfficeController extends Controller
         ->where('roles.roleName','admin')
         ->select('users.*')
         ->get();
-        //dd($admins);
+
         return view('offices.index')
                 ->with('offices',$offices)
                 ->with('admins',$admins);

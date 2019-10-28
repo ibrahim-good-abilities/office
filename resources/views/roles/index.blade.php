@@ -36,7 +36,7 @@
             <tbody>
                 @foreach ($roles as $role)
                 <tr>
-                    <td>{{ $role->id}}</td>
+                    <td>{{$loop->iteration}}</td>
                     <td>{{ $role->roleName}}</td>
                     <td>
                         <a  href="{{route('edit_role',$role->id)}}">

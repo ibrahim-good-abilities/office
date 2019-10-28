@@ -36,13 +36,13 @@
     @csrf
     @method('PUT')
     <div class="input-name col s12">
-        <input  name="startTime" id="startTime" type="text" class="validate" value="{{$schedule->startTime}}" placeholder="{{ __('Add Schedule Start Time') }}">
+        <input  name="startTime" id="startTime" type="text" class="timepicker validate" value="{{$schedule->startTime}}" placeholder="{{ __('Add Schedule Start Time') }}">
         <label for="startTime">{{ __('Start Time') }}</label>
     </div>
 
 
     <div class="input-name col s12">
-        <input  name="endTime" id="endTime" type="text" class="validate" value="{{$schedule->endTime}}"placeholder="{{ __('Add Schedule End Time') }}">
+        <input  name="endTime" id="endTime" type="text" class="timepicker validate" value="{{$schedule->endTime}}"placeholder="{{ __('Add Schedule End Time') }}">
         <label for="endTime">{{ __('End Time') }}</label>
     </div>
 
@@ -78,8 +78,10 @@
         <button class="btn cyan waves-effect waves-light right" type="submit" name="action">{{ __('Submit') }}
             <i class="material-icons right">send</i>
         </button>
-    </div>  
+    </div>
 </form>
 @section('page_js')
+<script src="{{ asset('resources/js/edit_schedule.js')}}" type="text/javascript"></script>
+
 @endsection
 @endsection

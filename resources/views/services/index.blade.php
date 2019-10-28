@@ -41,7 +41,7 @@
 
         @foreach($services as $service)
             <tr>
-                <td>{{ $service->id }}</td>
+                <td>{{$loop->iteration}}</td>
                 <td>{{ $service->serviceName }}</td>
                 <td>{{ $service->servicePrice }}</td>
                 <td>{{ $service->serviceTime }}</td>

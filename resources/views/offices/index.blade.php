@@ -37,13 +37,12 @@
 <table id="offices" class="subscription-table highlight">
     <thead>
         <tr>
-
+            <th>#</th>
             <th>{{ __('Office Name') }}</th>
-            <th> {{ __('Office Address') }}</th>
             <th> {{ __('Office Phone') }}</th>
             <th>{{__('Office Mobile')}}</th>
             <th>{{ __('Office Email') }}</th>
-            <th>{{__('City Id')}}</th>
+            <th>{{__('City Name')}}</th>
             <th>{{__('Admin')}}</th>
             <th>{{__('Settings')}}</th>
         </tr>
@@ -52,12 +51,12 @@
 
         @foreach($offices as $office)
             <tr  data-office_id="{{$office->id}}">
+                <td>{{$loop->iteration}}</td>
                 <td>{{ $office->officeName }}</td>
-                <td>{{ $office->officeAddress }}</td>
                 <td>{{ $office->officePhone }}</td>
                 <td>{{ $office->officeMobile }}</td>
                 <td>{{ $office->officeEmail }}</td>
-                <td>{{ $office->cityId }}</td>
+                <td>{{ $office->cityName }}</td>
                 <td>
                     {{ $office->name }}
                     <a class="modal-trigger" href="#changeAdmin"><i class="material-icons pink-text">person_add</i></a>

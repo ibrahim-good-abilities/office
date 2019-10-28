@@ -36,7 +36,7 @@
     <tbody>
         @foreach($cities as $city)
             <tr>
-                <td>{{$city->id}}</td>
+                <td>{{$loop->iteration}}</td>
                 <td>{{$city->cityName}}</td>
                 <td class="left-align">
                       <a href="{{route('edit_city',$city->id)}}"><i class="material-icons">visibility</i></a>

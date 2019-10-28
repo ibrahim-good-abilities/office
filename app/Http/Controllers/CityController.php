@@ -22,6 +22,7 @@ class CityController extends Controller
         return view('cities.index')->with('cities',$cities);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *

@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title',  __('Add New Work Day'))
+@section('title',  __('Edit New Work Day'))
 @section('page_css')
 @endsection
 
@@ -32,11 +32,12 @@
         </ul>
       </div><br />
 @endif
-<form action="{{Route('working-days.store')}}" method="post">
-   @csrf
+<form action="{{Route('working-days.update',$working_day->id)}}" method="post">
+    @method('PUT')
+    @csrf
     <div class="row">
         <div class="input-name col s12">
-            <input name="date" id="date" type="text" placeholder="{{ __('Select Date') }}" class="days-datepicker">
+            <input name="date" id="date" type="text" placeholder="{{ __('Select Date') }}" class="days-datepicker" value="{{$working_day->date}}">
             <label for="date">{{ __('Date') }}</label>
         </div>
 

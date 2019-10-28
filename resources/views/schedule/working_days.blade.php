@@ -46,12 +46,12 @@
         @foreach ($working_days as $day)
         <tr>
             <td>{{$loop->iteration}}</td>
-            <td>{{ $day->date}}</td>
+            <td>{{$day->date}}</td>
             <td>
-                <a  href="#">
+                <a  href="{{ route('working-days.edit',$day->id) }}">
                     <i class="material-icons">edit</i>
                 </a>
-                <a  class="delete-with-confirmation" href="#">
+                <a  class="delete-with-confirmation" href="{{ route('delete_working_day',$day->id) }}">
                     <i class="material-icons pink-text delete-with-confirmation">clear</i>
                 </a>
             </td>

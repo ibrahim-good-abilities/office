@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\WorkingDay;
 
@@ -40,7 +40,25 @@ class WorkingDayController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'date' => ['required','date',function ($attribute, $value, $fail) {
+                                $working_day_exist =  DB::table('working_days')->where('date', $value)->where('officeId', auth()->user()->officeId)->count();
+                                if($working_day_exist > 0){
+                                    $fail(__('Working day already created'));
+                                }
+                            },
+                        ],
+        ]);
+
+        
+        $working_day = new WorkingDay();
+        $working_day->date = request('date');
+        $working_day->officeId = auth()->user()->officeId;
+        $working_day->save();
+        return redirect()->route('working-days.edit',$working_day->id)
+        ->with('success',__('Working day created successfully'))
+        ->with('working_day',$working_day);
+
     }
 
     /**
@@ -62,7 +80,8 @@ class WorkingDayController extends Controller
      */
     public function edit($id)
     {
-        //
+        $working_day = WorkingDay::find($id);
+        return view('schedule.edit_work_day')->with('working_day',$working_day);
     }
 
     /**
@@ -74,7 +93,24 @@ class WorkingDayController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'date' => ['required','date',function ($attribute, $value, $fail)  use ($id){
+
+                                $working_day_exist =  DB::table('working_days')->where('date', $value)->where('id','!=',$id)->where('officeId', auth()->user()->officeId)->count();
+                                if($working_day_exist > 0){
+                                    $fail(__('Working day already created'));
+                                }
+                            },
+                        ],
+        ]);
+
+    
+        $working_day = WorkingDay::find($id);
+        $working_day->date = request('date');
+        $working_day->save();
+        return redirect()->route('working-days.edit',$working_day->id)
+        ->with('success',__('Working updated successfully'))
+        ->with('working_day',$working_day);
     }
 
     /**
@@ -85,6 +121,8 @@ class WorkingDayController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $working_day = WorkingDay::find($id);
+        $working_day->delete();
+        return redirect()->back()->with('success',__('Working day removed successfully'));
     }
 }

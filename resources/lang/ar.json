@@ -114,5 +114,10 @@
     "Main": "الرئيسية",
     "Date": "التاريخ",
     "Add New Work Day": "أضافة يوم عمل جديد",
-    "Select Date": "أختار تاريخ"
+    "Select Date": "أختار تاريخ",
+    "Edit New Work Day": "تعديل يوم عمل",
+    "Working day created successfully": "تم تسجيل يوم عمل جديد بنجاح",
+    "Working day already created": "يوم العمل مسجل بالفعل",
+    "Working day removed successfully": "تم حذف يوم العمل بنجاح",
+    "Working updated successfully": "تم تعديل يوم العمل بنجاح"
 }

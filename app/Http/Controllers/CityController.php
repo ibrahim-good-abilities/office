@@ -70,7 +70,7 @@ class CityController extends Controller
     {
         $city = City::find($id);
         return view('cities.edit')->with('city',$city);
-        }
+    }
 
     /**
      * Update the specified resource in storage.

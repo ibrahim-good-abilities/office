@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\WorkingDay;
+use App\Schedule;
+use App\Office;
 
 class WorkingDayController extends Controller
 {
@@ -55,6 +57,20 @@ class WorkingDayController extends Controller
         $working_day->date = request('date');
         $working_day->officeId = auth()->user()->officeId;
         $working_day->save();
+        $employees =  DB::table('users')->where('roleId', 3)->where('officeId', auth()->user()->officeId)->get();
+        $office = Office::find($working_day->officeId);
+        foreach ($employees as $employee) {
+            $schedule = new Schedule();
+            $schedule->available = 1;
+            $schedule->officailTime = 1;
+            $schedule->officailTime = 1;
+            $schedule->startTime = $office->officeStartTime;
+            $schedule->endTime = $office->officeEndTime;
+            $schedule->userId = $employee->id;
+            $schedule->nextAssignTime = $office->officeStartTime;
+            $schedule->workDayId = $working_day->id;
+            $schedule->save();
+        }
         return redirect()->route('working-days.edit',$working_day->id)
         ->with('success',__('Working day created successfully'))
         ->with('working_day',$working_day);

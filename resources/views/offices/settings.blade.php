@@ -37,18 +37,18 @@
 
          <div class="row">
             <div class="input-name col s12">
-               <input  name="officeStartTime" id="officeStartTime" type="text" class="validate" value="{{$office->officeStartTime}}" placeholder="{{ __('Add Office Start Time') }}">
+               <input  name="officeStartTime" id="officeStartTime" class="timepicker validate" type="text"  value="{{$office->officeStartTime}}" placeholder="{{ __('Add Office Start Time') }}">
                <label for="officeStartTime">{{ __('Office Start Time') }}</label>
             </div>
 
 
             <div class="input-name col s12">
-               <input  name="officeBreak" id="officeBreak" type="text" class="validate"value="{{$office->officeBreak}}" placeholder="{{ __('Add Office Break') }}">
+               <input  name="officeBreak" id="officeBreak" type="text" class="timepicker validate" value="{{$office->officeBreak}}" placeholder="{{ __('Add Office Break') }}">
                <label for="officeBreak">{{ __('Office Break') }}</label>
             </div>
 
             <div class="input-name col s12">
-               <input  name="officeEndTime" id="officeEndTime" type="text" class="validate" value="{{$office->officeEndTime}}"placeholder="{{ __('Add Office End Time') }}">
+               <input  name="officeEndTime" id="officeEndTime" type="text"class="timepicker validate" value="{{$office->officeEndTime}}"placeholder="{{ __('Add Office End Time') }}">
                <label for="officeEndTime">{{ __('Office End Time') }}</label>
             </div>
 
@@ -63,5 +63,6 @@
 
 </form>
 @section('page_js')
+<script src="{{ asset('resources/js/settings.js')}}" type="text/javascript"></script>
 @endsection
 @endsection

@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +17,7 @@ class TicketController extends Controller
      */
     public function index()
     {   #write query here ^_^
+        $this->middleware('auth');
         return view('tickets.index');
     }
 
@@ -88,10 +89,12 @@ class TicketController extends Controller
 
     public function employeeTickets()
     {
+        $this->middleware('auth');
         return view('tickets.employee');
     }
     public function userTickets()
     {
+        $this->middleware('auth');
         return view('tickets.user');
     }
 

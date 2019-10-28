@@ -19,8 +19,10 @@ Route::post('register', 'PassportController@register');
 Route::get('/resetpassword','PassportController@resetpassword');
 //cities
 Route::get('/cities','PassportController@cities');
+//services
+Route::get('/services','PassportController@services');
 
 Route::middleware('auth:api')->group(function () {
     Route::POST('demo', 'PassportController@details');
-
+    Route::POST('create/ticket','PassportController@createTicket');
 });

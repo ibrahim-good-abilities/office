@@ -106,6 +106,9 @@ class ServiceController extends Controller
         $service->serviceName = request('serviceName');
         $service->servicePrice = request('servicePrice');
         $service->serviceTime = request('serviceTime');
+        $service->serviceDescription = request('serviceDescription');
+        $service->serviceAllowedCancelTime = request('serviceAllowedCancelTime');
+
         $service->save();
         return redirect()->back()->with('success',__('Service updated successfully'));
 

@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\City;
+use App\Service;
+use App\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 
 class PassportController extends Controller
@@ -117,9 +120,47 @@ class PassportController extends Controller
     //return response()->json(['status'=>'success']);
     switch ($response) {
         case Password::RESET_LINK_SENT:
-            return response()->json(['status','success ']);
+            return response()->json(['status'=>'success ']);
         case Password::INVALID_USER:
             return  response()->json(['status error' => 'invaild email']);
     }
-}
+    }
+    public function services()
+    {
+        $services = Service::all();
+        $services_list=[];
+        foreach($services as $service)
+        {
+            $requirements =DB::table('requirements')->where('serviceId','=',$service->id)->get();
+            $services_list[] = [
+                'service_id'=>$service->id , 'service_name'=>$service->serviceName,
+                'service_price' => $service->servicePrice ,'service_time' => $service->serviceTime,
+                'service_description' =>$service->serviceDescription,
+                'service_allowed_cancel_time'=>$service->serviceAllowedCancelTime,
+                'requirements'=>$requirements
+            ];
+        }
+
+        return response()->json(['services'=>$services_list]);
+    }
+    public function createTicket(Request $request)
+    {
+        $request->validate([
+            'ticketStatus'  => 'required',
+            'ticketEndTime' => 'required',
+            'serviceId' => 'required',
+        ]);
+        $ticket = new Ticket();
+        $ticket->ticketStatus = $request->ticketStatus;
+        $ticket->ticketEndTime = $request->ticketEndTime;
+        $ticket->serviceId = $request->serviceId;
+        $ticket->userId = Auth::user()->id;
+
+        $ticket->save();
+
+        return response()->json(['status'=>'ticket created succeesfully ','tiket'=>$ticket]);
+
+
+    }
+
 }

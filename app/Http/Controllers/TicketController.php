@@ -116,8 +116,7 @@ class TicketController extends Controller
         ->Join('users as employees','schedule.userId','=','employees.id')
         ->whereDate('working_days.date','=', Carbon::today()->toDateString())
         ->where('schedule.userId','=',auth()->user()->id)
-        ->where('tickets.ticketStatus','!=','resolved')
-        ->where('tickets.ticketStatus','!=','rated')
+        ->where('tickets.ticketStatus','=','in-progress')
         ->orderBy('tickets.id', 'desc')
         ->select('services.serviceName as service','users.name as user','tickets.id','tickets.ticketStartTime as time')->get();
         return view('tickets.employee')

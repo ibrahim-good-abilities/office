@@ -38,7 +38,7 @@ class RegisterController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
+        $roles = Role::all()->where('roleName','!=','User');
         $offices = Office::all();
         return view('users.add')
                 ->with('roles',$roles)

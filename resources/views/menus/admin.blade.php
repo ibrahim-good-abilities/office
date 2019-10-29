@@ -1,5 +1,5 @@
     <li class="bold">
-        <a class="waves-effect waves-cyan " href="{{route('home')}}"><i class="material-icons">dashboard</i><span class="menu-title" data-i18n="">{{ __('Main') }}</span></a>
+        <a class="waves-effect waves-cyan " href="{{route('office_tickets')}}"><i class="material-icons">dashboard</i><span class="menu-title" data-i18n="">{{ __('Main') }}</span></a>
     </li>
     <li class="bold"><a class="collapsible-header waves-effect waves-cyan" href="javascript:void(0)"><i class="material-icons">schedule</i>
         <span class="menu-title" data-i18n="">{{ __('Working Days') }}</span></a>

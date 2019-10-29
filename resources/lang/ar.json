@@ -139,5 +139,15 @@
     "Tasks":"المهام",
     "Update Ticket Status":"تحديث حالة الطلب",
     "Ticket Code":"كود الطلب",
-    "Requirement Created succesfully":"تم اضافة المستند بنجاح"
+    "Requirement Created succesfully":"تم اضافة المستند بنجاح",
+    "Ticket not found": "الطلب غير مسجل",
+    "Ticket cancelled": "تم الغاء الطلب",
+    "Ticket max allowed cancellation period reached": "تم تخطى الوقت المسموح لألغاء الخدمة",
+    "Files": "الملفات",
+    "Tasks": "المهام",
+    "Update Ticket Status": "تحديث حالة الطلب",
+    "Ticket Code": "كود الطلب",
+    "Reset Password": "استرجاع كلمة المرور",
+    "Send Password Reset Link": "ارسل رابط استرجاع كلمة المرور",
+    "Mark As Done": "إتمام"
 }

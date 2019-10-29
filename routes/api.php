@@ -30,5 +30,5 @@ Route::middleware('auth:api')->group(function () {
     Route::POST('demo', 'PassportController@details');
     Route::POST('create/ticket','PassportController@createTicket');
     Route::post('requirements','PassportController@payment');
-
+    Route::POST('cancel/ticket','PassportController@cancelTicket');
 });

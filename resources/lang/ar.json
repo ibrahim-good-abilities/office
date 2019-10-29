@@ -137,5 +137,6 @@
     "Offices Tickets": "طلبات المكاتب",
     "Files":"الملفات",
     "Tasks":"المهام",
-    "Update Ticket Status":"تحديث حالة الطلب"
+    "Update Ticket Status":"تحديث حالة الطلب",
+    "Ticket Code":"كود الطلب"
 }

@@ -81,8 +81,8 @@ class ScheduleController extends Controller
         ]);
         $schedule = Schedule::find($id);
         $schedule->startTime = request('startTime');
-        $schedule->endTime = request('endTime');
-        $schedule->officailTime = $request->has('officailTime');
+        $schedule->leaveTime = request('endTime');
+        $schedule->officialTime = $request->has('officialTime');
         $schedule->available = $request->has('available');
         $schedule->save();
         return redirect()->back()->with('success',__('Schedule updated successfully'));

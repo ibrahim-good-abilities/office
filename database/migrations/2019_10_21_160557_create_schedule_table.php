@@ -17,9 +17,11 @@ class CreateScheduleTable extends Migration
             $table->bigIncrements('id');
             $table->date('userDate');
             $table->boolean('available');
-            $table->boolean('officailTime');
+            $table->boolean('officialTime');
             $table->string('startTime');
-            $table->string('endTime');
+            $table->string('breakTime');
+            $table->string('backTime');
+            $table->string('leaveTime');
             $table->unsignedBigInteger('userId')->nullable();
             $table->foreign('userId')
             ->references('id')

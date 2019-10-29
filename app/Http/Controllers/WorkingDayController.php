@@ -62,12 +62,14 @@ class WorkingDayController extends Controller
         foreach ($employees as $employee) {
             $schedule = new Schedule();
             $schedule->available = 1;
-            $schedule->officailTime = 1;
-            $schedule->officailTime = 1;
+            $schedule->officialTime = 1;
             $schedule->startTime = $office->officeStartTime;
-            $schedule->endTime = $office->officeEndTime;
+            $schedule->breakTime = $office->officeBreak;
+            $time = strtotime($office->officeBreak);
+            $endTime = date("H:i", strtotime('+30 minutes', $time));
+            $schedule->backTime = $endTime;
+            $schedule->leaveTime = $office->officeEndTime;
             $schedule->userId = $employee->id;
-            $schedule->nextAssignTime = $office->officeStartTime;
             $schedule->workDayId = $working_day->id;
             $schedule->save();
         }
@@ -101,7 +103,7 @@ class WorkingDayController extends Controller
         ->where('schedule.workDayId',$id)
         ->join('users','users.id','=','schedule.userId')
         ->join('working_days','working_days.id','=','schedule.workDayId')
-        ->select('schedule.id','schedule.available','schedule.startTime as start_time','schedule.endTime as end_time','working_days.date','users.name as employee')
+        ->select('schedule.id','schedule.available','schedule.startTime as start_time','schedule.leaveTime as end_time','working_days.date','users.name as employee')
         ->get();
         return view('schedule.edit_work_day')->with('working_day',$working_day)->with('schedule_list',$schedule_list);
     }

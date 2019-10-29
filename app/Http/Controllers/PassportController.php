@@ -27,33 +27,40 @@ class PassportController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
-            'userProfilePicture' =>['required','image'],
-            'userIdFile'=>['required','file'],
+            // 'userProfilePicture' =>['required','image'],
+            // 'userIdFile'=>['required','file'],
             'cityId' => ['required'],
             'userAddress' => ['required'],
-             'userIdNum' => ['required','max:14'],
+            'userIdNum' => ['required','max:14'],
             'userJopTitle' => 'required',
         ]);
 
         $user = new User();
-        $file = $request->file('userIdFile');
-        $fileSaveAsName = time() . "usersFiles." .$file->getClientOriginalExtension();
-        $upload_path = public_path('/usersFiles/Id/');
-        $file_url = $upload_path . $fileSaveAsName;
-        $file->move($upload_path, $fileSaveAsName);
+        if($request->has('userIdFile')){
+            $file = $request->file('userIdFile');
+            $fileSaveAsName = time() . "usersFiles." .$file->getClientOriginalExtension();
+            $upload_path = public_path('/usersFiles/Id/');
+            $file_url = $upload_path . $fileSaveAsName;
+            $file->move($upload_path, $fileSaveAsName);
+            $user->userIdFile = $file_url;
+        }
+
         //profile picture upload
-        $file = $request->file('userProfilePicture');
-        $fileSaveName = time() . "usersFiles." .$file->getClientOriginalExtension();
-        $uploadPath = public_path('/usersFiles/profilePicture/');
-        $profilePicture = $uploadPath . $fileSaveName;
-        $file->move($uploadPath, $fileSaveName);
+        if($request->has('userProfilePicture')){
+            $file = $request->file('userProfilePicture');
+            $fileSaveName = time() . "usersFiles." .$file->getClientOriginalExtension();
+            $uploadPath = public_path('/usersFiles/profilePicture/');
+            $profilePicture = $uploadPath . $fileSaveName;
+            $file->move($uploadPath, $fileSaveName);
+            $user->userProfilePicture=$profilePicture;
+        }
+
 
         $user->name = $request->name;
         $user->email =  $request->email;
         $user->password = Hash::make( $request->password);
         $user->roleId = 4;
-        $user->userIdFile = $file_url;
-        $user->userProfilePicture=$profilePicture;
+        
         $user->cityId = $request->cityId;
         $user->userAddress = $request->userAddress;
         $user->userIdNum = $request->userIdNum;
@@ -97,7 +104,8 @@ class PassportController extends Controller
      */
     public function details()
     {
-        return response()->json(['name' => 'hussam'], 200);
+        $users = DB::table('users')->get();
+        return response()->json(['user' => $users->get(1)], 200);
     }
     public function cities()
     {
@@ -131,7 +139,7 @@ class PassportController extends Controller
         $services_list=[];
         foreach($services as $service)
         {
-            $requirements =DB::table('requirements')->where('serviceId','=',$service->id)->get();
+            $requirements = DB::table('requirements')->where('serviceId','=',$service->id)->get();
             $services_list[] = [
                 'service_id'=>$service->id , 'service_name'=>$service->serviceName,
                 'service_price' => $service->servicePrice ,'service_time' => $service->serviceTime,
@@ -146,19 +154,156 @@ class PassportController extends Controller
     public function createTicket(Request $request)
     {
         $request->validate([
-            'ticketStatus'  => 'required',
-            'ticketEndTime' => 'required',
             'serviceId' => 'required',
+            'shift' => 'required',
+            'workDayId' => 'required',
         ]);
-        $ticket = new Ticket();
-        $ticket->ticketStatus = $request->ticketStatus;
-        $ticket->ticketEndTime = $request->ticketEndTime;
-        $ticket->serviceId = $request->serviceId;
-        $ticket->userId = Auth::user()->id;
 
+        //create ticket object
+        $ticket = new Ticket();
+        $ticket->serviceId = $request->serviceId;
+        $ticket->ticketStatus = 'on-hold';
+        $ticket->shift =  $request->shift;
+        $ticket->userId = Auth::user()->id;
         $ticket->save();
 
-        return response()->json(['status'=>'ticket created succeesfully ','tiket'=>$ticket]);
+        //get office schedule list in order
+        $schedule_list = DB::table('schedule')->where('available','=',1)->where('workDayId','=',$request->workDayId)->get();
+        
+        //ask if this day total  tickets is 0
+        $total_tickets = DB::table('tickets')
+        ->join('schedule','tickets.scheduleId','=','schedule.id')
+        ->join('working_days','schedule.workDayId','=','working_days.id')
+        ->where('workDayId','=',$request->workDayId)
+        ->where('tickets.ticketStatus','!=','cancelled')
+        ->count();
+
+        $service = DB::table('services')->where('id', $request->serviceId)->first();
+        //if yes : assign ticket to first schedule
+        if($total_tickets == 0){
+            $schedule = $schedule_list->get(0);
+            if($ticket->shift == 'morning'){
+                $ticket->ticketStartTime = $schedule->startTime;
+                $time = strtotime($ticket->ticketStartTime);
+                $endTime = date("H:i", strtotime('+'.$service->serviceTime.' minutes', $time));
+                $ticket->ticketEstimatedEndTime = $endTime;
+                $ticket->scheduleId = $schedule->id;
+                $ticket->ticketStatus = 'pending-payment';
+                $ticket->save();
+            }else{
+                $ticket->ticketStartTime = $schedule->backTime;
+                $time = strtotime($ticket->ticketStartTime);
+                $endTime = date("H:i", strtotime('+'.$service->serviceTime.' minutes', $time));
+                $ticket->ticketEstimatedEndTime = $endTime;
+                $ticket->scheduleId = $schedule->id;
+                $ticket->ticketStatus = 'pending-payment';
+                $ticket->save();
+            }
+
+        }else{
+            //else : get last ticket schedule and get the next schedule
+            $last_ticket = DB::table('tickets')
+                    ->join('schedule','tickets.scheduleId','=','schedule.id')
+                    ->join('working_days','schedule.workDayId','=','working_days.id')
+                    ->where('workDayId','=',$request->workDayId)
+                    ->where('tickets.ticketStatus','!=','cancelled')
+                    ->orderBy('tickets.id', 'desc')
+                    ->first();
+            $schedule = null;
+            foreach ($schedule_list as $key => $schedule_obj) {
+                if($schedule_obj->id == $last_ticket->scheduleId){
+                    if(count($schedule_list) != ($key + 1)){
+                        $schedule = $schedule_list->get($key + 1);
+                    }else{
+                        $schedule = $schedule_list->get(0);
+                    }
+                }
+            }
+
+            //check if schedule has free time on that shift  (including cancelled ticket)
+            $start_time = 0;
+            //check if we already have the last ticket object on the selected schedule
+            if( $last_ticket->scheduleId == $schedule->id && $last_ticket->shift == $request->shift){
+                $start_time = $last_ticket->ticketEstimatedEndTime;
+            }else{
+                //find the the last ticket object on the selected schedule same shift
+                $last_ticket = DB::table('tickets')
+                    ->where('tickets.scheduleId','=',$schedule->id)
+                    ->where('tickets.shift','=',$request->shift)
+                    ->where('tickets.ticketStatus','!=','cancelled')
+                    ->orderBy('tickets.id', 'desc')
+                    ->first();
+                if($last_ticket){
+                    $start_time = $last_ticket->ticketEstimatedEndTime;
+                }else{
+                    //shift is empty on that schedule then we can assign directly
+                    if($ticket->shift == 'morning'){
+                        $ticket->ticketStartTime = $schedule->startTime;
+                        $time = strtotime($ticket->ticketStartTime);
+                        $endTime = date("H:i", strtotime('+'.$service->serviceTime.' minutes', $time));
+                        $ticket->ticketEstimatedEndTime = $endTime;
+                        $ticket->scheduleId = $schedule->id;
+                        $ticket->ticketStatus = 'pending-payment';
+                        $ticket->save();
+                    }else{
+                        $ticket->ticketStartTime = $schedule->backTime;
+                        $time = strtotime($ticket->ticketStartTime);
+                        $endTime = date("H:i", strtotime('+'.$service->serviceTime.' minutes', $time));
+                        $ticket->ticketEstimatedEndTime = $endTime;
+                        $ticket->scheduleId = $schedule->id;
+                        $ticket->ticketStatus = 'pending-payment';
+                        $ticket->save();
+                    }
+                }
+
+            }
+
+            
+            if($start_time != 0){
+                //we were able to define the start time without generate time for the ticket
+
+                if($ticket->shift == 'morning'){
+                    $time = strtotime($start_time);
+                    $endTime = date("H:i", strtotime('+'.$service->serviceTime.' minutes', $time));
+                    $schedule_break_time = date("H:i",strtotime($schedule->breakTime));
+
+                    //is service time inconsistent with break time
+                    if($endTime > $schedule_break_time){
+                        $ticket->scheduleId = $schedule->id;
+                        $ticket->ticketStatus = 'waiting-list';
+                        $ticket->save();
+                    }else{
+                        $ticket->ticketStartTime = $start_time;
+                        $time = strtotime($ticket->ticketStartTime);
+                        $endTime = date("H:i", strtotime('+'.$service->serviceTime.' minutes', $time));
+                        $ticket->ticketEstimatedEndTime = $endTime;
+                        $ticket->scheduleId = $schedule->id;
+                        $ticket->ticketStatus = 'pending-payment';
+                        $ticket->save();
+                    }
+                }else{
+                    //is service time inconsistent with leave time
+                    $time = strtotime($start_time);
+                    $endTime = date("H:i", strtotime('+'.$service->serviceTime.' minutes', $time));
+                    $schedule_leave_time = date("H:i",strtotime($schedule->leaveTime));
+                    if($endTime > $schedule_leave_time){
+                        $ticket->scheduleId = $schedule->id;
+                        $ticket->ticketStatus = 'waiting-list';
+                        $ticket->save();
+                    }else{
+                        $ticket->ticketStartTime = $start_time;
+                        $time = strtotime($ticket->ticketStartTime);
+                        $endTime = date("H:i", strtotime('+'.$service->serviceTime.' minutes', $time));
+                        $ticket->ticketEstimatedEndTime = $endTime;
+                        $ticket->scheduleId = $schedule->id;
+                        $ticket->ticketStatus = 'pending-payment';
+                        $ticket->save();
+                    }
+                }
+            }
+        }
+    
+        return response()->json(['status'=>'ticket created succeesfully ','ticket'=>$ticket]);
 
 
     }

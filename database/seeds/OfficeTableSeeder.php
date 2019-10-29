@@ -20,7 +20,7 @@ class OfficeTableSeeder extends Seeder
             'cityId' => 1,
             'officeStartTime' => '9:00',
             'officeBreak' => '12:30',
-            'officeEndTime' => '3:00',
+            'officeEndTime' => '15:00',
         ]);
     }
 }

@@ -67,7 +67,7 @@
         <div class="switch">
             <label>
             وقت عمل رسمى
-            <input type="checkbox"  name="officailTime" {{ $schedule->officailTime ? 'checked':'' }}>
+            <input type="checkbox"  name="officialTime" {{ $schedule->officialTime ? 'checked':'' }}>
             <span class="lever"></span>
             غير رسمى
             </label>

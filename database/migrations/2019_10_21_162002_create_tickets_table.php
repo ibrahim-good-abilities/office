@@ -23,10 +23,10 @@ class CreateTicketsTable extends Migration
             ->on('users')
             ->onDelete('cascade');
 
-            $table->unsignedBigInteger('employeeId')->nullable();
-            $table->foreign('employeeId')
+            $table->unsignedBigInteger('scheduleId')->nullable();
+            $table->foreign('scheduleId')
             ->references('id')
-            ->on('users')
+            ->on('schedule')
             ->onDelete('cascade');
 
             $table->unsignedBigInteger('serviceId');

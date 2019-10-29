@@ -158,11 +158,13 @@ class PassportController extends Controller
             'shift' => 'required',
             'workDayId' => 'required',
         ]);
+        $service = DB::table('services')->where('id', $request->serviceId)->first();
 
         //create ticket object
         $ticket = new Ticket();
         $ticket->serviceId = $request->serviceId;
         $ticket->ticketStatus = 'on-hold';
+        $ticket->ticketCost = $service->servicePrice;
         $ticket->shift =  $request->shift;
         $ticket->userId = Auth::user()->id;
         $ticket->save();

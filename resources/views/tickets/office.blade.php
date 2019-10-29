@@ -49,10 +49,12 @@
             <td>{{$ticket->date}}</td>
             <td>{{$ticket->time}}</td>
             <td>{{$ticket->status}}</td>
-            <td>
+            <td data-rate="{{$ticket->rate}}" data-feedback="{{$ticket->feedback}}">
+                @if($ticket->status == 'rated')
                 <a  href="#feedback" class="modal-trigger">
                     <i class="material-icons">feedback</i>
                 </a>
+                @endif
             </td>
         </tr>
         @endforeach
@@ -62,10 +64,10 @@
 <div id="feedback" class="modal">
   <form action="{{ route('updateAdmin') }}" method="post">
     @csrf
-    <div class="modal-content">
-      <h4  class="center-align"><i class="material-icons " id="feedbackStar"> star</i>2/5</h4>
+    <div class="modal-content center-align">
+      <h4><i class="material-icons feedbackStar" > star</i><span id="rate">2</span>/5</h4>
       <div class="row">
-          <div class="input-field col m12 s6">
+          <div class="input-field col m12 s6" id="ticket_feedback">
                     <?php $lipsum = simplexml_load_file('http://www.lipsum.com/feed/xml?amount=1&what=paras&start=0')->lipsum;?>
                     {{ $lipsum}};
           </div>

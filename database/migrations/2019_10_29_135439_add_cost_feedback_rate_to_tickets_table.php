@@ -15,8 +15,8 @@ class AddCostFeedbackRateToTicketsTable extends Migration
     {
         Schema::table('tickets', function (Blueprint $table) {
             $table->float('ticketCost');
-            $table->string('rate')->nullable();
-            $table->string('feedback')->nullable();
+            $table->string('ticketRate')->nullable();
+            $table->string('ticketFeedback')->nullable();
         });
     }
 

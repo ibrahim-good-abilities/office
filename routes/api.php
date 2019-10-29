@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 //Auth
 Route::post('login', 'PassportController@login');
 Route::post('register', 'PassportController@register');
+Route::post('register2', 'PassportController@register2');
+
 //reset password
 Route::get('/resetpassword','PassportController@resetpassword');
 //cities
@@ -27,5 +29,6 @@ Route::get('office/{officeId}/working-days','PassportController@workingDays');
 Route::middleware('auth:api')->group(function () {
     Route::POST('demo', 'PassportController@details');
     Route::POST('create/ticket','PassportController@createTicket');
+    Route::post('requirements','PassportController@payment');
     Route::POST('cancel/ticket','PassportController@cancelTicket');
 });

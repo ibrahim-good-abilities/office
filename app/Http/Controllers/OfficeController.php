@@ -39,19 +39,21 @@ class OfficeController extends Controller
                 ->with('admins',$admins);
     }
 
-    public function superadminIndex()
+
+    public function summary()
     {
-        $offices =DB::table('offices')
-        ->leftJoin('users','users.id','=','offices.officeAdminId')
+        $offices = DB::table('offices')
         ->join('cities','cities.id','=','offices.cityId')
-        ->select('offices.*','users.name','cities.cityName')
+        ->leftJoin('working_days','working_days.officeId','=','offices.id')
+        ->leftJoin('schedule','schedule.workDayId','=','working_days.id')
+        ->leftJoin('tickets','tickets.scheduleId','=','schedule.id')
+        ->select('offices.officeName as office','offices.id as id', 'cities.cityName as city',DB::raw('COUNT(tickets.id) as total_tickets'))
+        ->groupBy('offices.officeName','offices.id','cities.cityName')
         ->get();
-
-
         return view('offices.superadmin.index')
-                ->with('offices',$offices);
-
+        ->with('offices',$offices);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -219,7 +221,7 @@ class OfficeController extends Controller
         $office->officeEndTime = request('officeEndTime');
         $office->save();
 
-        return redirect()->back()->with('success','Office updated successfully');
+        return redirect()->back()->with('success',__('Office updated successfully'));
 
 
     }

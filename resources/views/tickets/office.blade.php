@@ -50,7 +50,7 @@
             <td>{{$ticket->time}}</td>
             <td>{{$ticket->status}}</td>
             <td>
-                <a  href="#">
+                <a  href="#feedback" class="modal-trigger">
                     <i class="material-icons">feedback</i>
                 </a>
             </td>
@@ -58,7 +58,22 @@
         @endforeach
     </tbody>
 </table>
+<!-- feedback modal -->
+<div id="feedback" class="modal">
+  <form action="{{ route('updateAdmin') }}" method="post">
+    @csrf
+    <div class="modal-content">
+      <h4  class="center-align"><i class="material-icons " id="feedbackStar"> star</i>2/5</h4>
+      <div class="row">
+          <div class="input-field col m12 s6">
+                    <?php $lipsum = simplexml_load_file('http://www.lipsum.com/feed/xml?amount=1&what=paras&start=0')->lipsum;?>
+                    {{ $lipsum}};
+          </div>
 
+        </div>
+    </div>
+  </form>
+</div>
 @section('page_js')
 <script src="{{asset('resources/vendors/data-tables/js/jquery.dataTables.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('resources/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js')}}" type="text/javascript"></script>

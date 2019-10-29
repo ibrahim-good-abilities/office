@@ -28,7 +28,32 @@
         @endforeach
     </tbody>
 </table>
-
+<!-- feedback modal -->
+<div id="feedback" class="modal">
+  <form action="{{ route('updateAdmin') }}" method="post">
+    @csrf
+    <div class="modal-content">
+      <h4>{{ __('Change Admin') }}</h4>
+      <div class="row">
+          <div class="input-field col m12 s6">
+                <select name="admin">
+                    <option value="" disabled selected>المدراء</option>
+                    @foreach($admins as $admin)
+                        <option value="{{ $admin->id }}" >{{$admin->name}}</option>
+                    @endforeach
+                </select>
+                <label>{{__('Choose New Admin')}}</label>
+          </div>
+                 <input type="hidden" name="office_id" value=""/>
+          <div class="button-wrapper">
+                <button class="btn cyan waves-effect waves-light right" type="submit">{{ __('Change') }}
+                      <i class="material-icons right">send</i>
+                </button>
+          </div>
+        </div>
+    </div>
+  </form>
+</div>
 <!-- orders table -->
 @section('page_js')
 <script src="{{asset('resources/vendors/data-tables/js/jquery.dataTables.min.js')}}" type="text/javascript"></script>

@@ -122,3 +122,7 @@ div#parista-layout {
         min-height: calc(115% - 271px);
     }
 }
+#feedbackStar {
+    color: goldenrod;
+    font-size: 30px;
+}

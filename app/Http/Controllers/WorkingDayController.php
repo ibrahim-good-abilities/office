@@ -20,7 +20,9 @@ class WorkingDayController extends Controller
      */
     public function index()
     {
-        $working_days = WorkingDay::all();
+        $working_days = DB::table('working_days')
+                     ->where('officeId', '=', auth()->user()->officeId)
+                     ->get();
         return view('schedule.working_days')->with('working_days',$working_days);
     }
 

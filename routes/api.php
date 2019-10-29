@@ -21,6 +21,8 @@ Route::get('/resetpassword','PassportController@resetpassword');
 Route::get('/cities','PassportController@cities');
 //services
 Route::get('/services','PassportController@services');
+//working days
+Route::get('office/{officeId}/working-days','PassportController@workingDays');
 
 Route::middleware('auth:api')->group(function () {
     Route::POST('demo', 'PassportController@details');

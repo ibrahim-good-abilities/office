@@ -1,6 +1,6 @@
 <li class="bold">
 
-        <a class="waves-effect waves-cyan " href="{{route('home')}}"><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">{{ __('Welcome') }}</span></a>
+        <a class="waves-effect waves-cyan " href="{{route('dashboard')}}"><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">{{ __('Welcome') }}</span></a>
     </li>
     <li class="bold"><a class="collapsible-header waves-effect waves-cyan" href="javascript:void(0)"><i class="material-icons">playlist_add_check</i>
         <span class="menu-title" data-i18n="">{{ __('Cities') }}</span></a>

@@ -43,13 +43,15 @@ class OfficeController extends Controller
     public function summary()
     {
         $offices = DB::table('offices')
+        ->join('cities','cities.id','=','offices.cityId')
         ->leftJoin('working_days','working_days.officeId','=','offices.id')
         ->leftJoin('schedule','schedule.workDayId','=','working_days.id')
         ->leftJoin('tickets','tickets.scheduleId','=','schedule.id')
-        ->select('services.serviceName as service', 'employees.name as employee','users.name as user','working_days.date','tickets.ticketStartTime as time','tickets.ticketStatus as status')->get();
-        return view('tickets.office')
-        ->with('tickets',$tickets);
-        return view('offices.settings')->with('office',$office);
+        ->select('offices.officeName as office','offices.id as id', 'cities.cityName as city',DB::raw('COUNT(tickets.id) as total_tickets'))
+        ->groupBy('offices.officeName','offices.id','cities.cityName')
+        ->get();
+        return view('offices.superadmin.index')
+        ->with('offices',$offices);
     }
 
     /**
@@ -219,7 +221,7 @@ class OfficeController extends Controller
         $office->officeEndTime = request('officeEndTime');
         $office->save();
 
-        return redirect()->back()->with('success','Office updated successfully');
+        return redirect()->back()->with('success',__('Office updated successfully'));
 
 
     }

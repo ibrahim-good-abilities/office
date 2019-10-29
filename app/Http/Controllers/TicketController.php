@@ -112,7 +112,7 @@ class TicketController extends Controller
         ->join('schedule','tickets.scheduleId','=','schedule.id')
         ->join('working_days','schedule.workDayId','=','working_days.id')
         ->join('services','tickets.serviceId','=','services.id')
-        ->join('users','ticketS.userId','=','users.id')
+        ->join('users','tickets.userId','=','users.id')
         ->Join('users as employees','schedule.userId','=','employees.id')
         ->whereDate('working_days.date','=', Carbon::today()->toDateString())
         ->where('schedule.userId','=',auth()->user()->id)

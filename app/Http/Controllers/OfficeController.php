@@ -39,6 +39,19 @@ class OfficeController extends Controller
                 ->with('admins',$admins);
     }
 
+    public function superadminIndex()
+    {
+        $offices =DB::table('offices')
+        ->leftJoin('users','users.id','=','offices.officeAdminId')
+        ->join('cities','cities.id','=','offices.cityId')
+        ->select('offices.*','users.name','cities.cityName')
+        ->get();
+
+
+        return view('offices.superadmin.index')
+                ->with('offices',$offices);
+
+    }
     /**
      * Show the form for creating a new resource.
      *

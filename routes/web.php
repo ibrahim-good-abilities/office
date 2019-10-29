@@ -21,7 +21,7 @@ Route::get('/', function(){
             if(auth()->user()){
 
                 if (auth()->user()->role->slug == 'superadmin') {
-                    return redirect()->route('all_offices');
+                    return redirect()->route('dashboard');
                 }elseif (auth()->user()->role->slug == 'admin') {
                     return redirect()->route('tickets');
                 }elseif (auth()->user()->role->slug == 'employee') {
@@ -40,7 +40,7 @@ Route::get('/', function(){
 Route::group(['middleware' => 'App\Http\Middleware\SuperAdminMiddleware'], function(){
 
         //home
-        Route::get('/offices','OfficeController@index')->name('dashboard');
+        Route::get('/offices','OfficeController@superadminIndex')->name('dashboard');
         //role
         Route::get('/role/create','RoleController@create')->name('add_role');
         Route::post('/role/store','RoleController@store')->name('store_role');

@@ -6,6 +6,7 @@ use App\User;
 use App\City;
 use App\Service;
 use App\Ticket;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -60,7 +61,7 @@ class PassportController extends Controller
         $user->email =  $request->email;
         $user->password = Hash::make( $request->password);
         $user->roleId = 4;
-        
+
         $user->cityId = $request->cityId;
         $user->userAddress = $request->userAddress;
         $user->userIdNum = $request->userIdNum;
@@ -125,7 +126,6 @@ class PassportController extends Controller
         $message->subject($this->getEmailSubject());
     });
 
-    //return response()->json(['status'=>'success']);
     switch ($response) {
         case Password::RESET_LINK_SENT:
             return response()->json(['status'=>'success ']);
@@ -169,7 +169,7 @@ class PassportController extends Controller
 
         //get office schedule list in order
         $schedule_list = DB::table('schedule')->where('available','=',1)->where('workDayId','=',$request->workDayId)->get();
-        
+
         //ask if this day total  tickets is 0
         $total_tickets = DB::table('tickets')
         ->join('schedule','tickets.scheduleId','=','schedule.id')
@@ -258,7 +258,7 @@ class PassportController extends Controller
 
             }
 
-            
+
             if($start_time != 0){
                 //we were able to define the start time without generate time for the ticket
 
@@ -302,10 +302,18 @@ class PassportController extends Controller
                 }
             }
         }
-    
+
         return response()->json(['status'=>'ticket created succeesfully ','ticket'=>$ticket]);
 
 
     }
+    public function workingDays($officeId)
+    {
+        $workingDays = DB::table('working_days')
+        ->where('officeId','=',$officeId)
+        ->whereDate('date','>=', Carbon::today()->toDateString())
+        ->get();
 
+        return response()->json(['workingDays'=>$workingDays]);
+    }
 }

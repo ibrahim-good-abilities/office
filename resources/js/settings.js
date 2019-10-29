@@ -1,3 +1,5 @@
 $(document).ready(function(){
-    $('.timepicker').timepicker();
+    $('.timepicker').timepicker({
+        twelveHour: false
+    });
   });

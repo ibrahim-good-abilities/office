@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\City;
+use App\File;
 use App\Service;
 use App\Ticket;
 use Carbon\Carbon;
@@ -40,7 +41,7 @@ class PassportController extends Controller
         if($request->has('userIdFile')){
             $file = $request->file('userIdFile');
             $fileSaveAsName = time() . "usersFiles." .$file->getClientOriginalExtension();
-            $upload_path = public_path('/usersFiles/Id/');
+            $upload_path = public_path('/usersFiles/id/');
             $file_url = $upload_path . $fileSaveAsName;
             $file->move($upload_path, $fileSaveAsName);
             $user->userIdFile = $file_url;
@@ -318,4 +319,32 @@ class PassportController extends Controller
 
         return response()->json(['workingDays'=>$workingDays]);
     }
+    public function payment(Request $request)
+    {
+        $request->validate([
+            'ticketId' =>'required',
+        ]);
+        $requirements =explode(',',request('requirements'));
+
+
+
+        foreach($requirements as $requirement_id)
+        {
+              $file = $request->file($requirement_id);
+              $requirement = new File();
+              $fileSaveAsName = time() . "usersFiles." .$file->getClientOriginalExtension();
+              $upload_path = public_path('/usersFiles/files/');
+              $file_url = $upload_path . $fileSaveAsName;
+              $file->move($upload_path, $fileSaveAsName);
+              $requirement->fileUrl = '/usersFiles/files/'.$fileSaveAsName;
+              $requirement->ticketId = $request->ticketId;
+              $requirement->requirementId = $requirement_id;
+              $requirement->save();
+        }
+    return response()->json(['status' =>'success'] );
+    }
+
+
+
+
 }

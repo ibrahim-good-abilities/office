@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -17,8 +18,7 @@ class TicketController extends Controller
      */
     public function index()
     {   #write query here ^_^
-        $this->middleware('auth');
-        return view('tickets.index');
+
     }
 
     /**
@@ -85,6 +85,21 @@ class TicketController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function officeTickets()
+    {
+        $this->middleware('auth');
+        $tickets = DB::table('tickets')
+        ->join('schedule','tickets.scheduleId','=','schedule.id')
+        ->join('working_days','schedule.workDayId','=','working_days.id')
+        ->join('services','tickets.serviceId','=','services.id')
+        ->join('users','tickets.userId','=','users.id')
+        ->leftJoin('users as employees','schedule.userId','=','employees.id')
+        ->where('working_days.officeId','=',auth()->user()->officeId)
+        ->select('services.serviceName as service', 'employees.name as employee','users.name as user','working_days.date','tickets.ticketStartTime as time','tickets.ticketStatus as status')->get();
+        return view('tickets.office')
+        ->with('tickets',$tickets);
     }
 
     public function employeeTickets()

@@ -66,7 +66,7 @@
     "Services": " الخدمات",
     "Add Service": "اضافة خدمة",
     "Add Service Name": "اضف اسم الخدمة",
-    "Add Service price":"اضف سعر الخدمة بالجنية",
+    "Add Service price": "اضف سعر الخدمة بالجنية",
     "Add Service Time": "اضف وقت الخدمة بالدقيقة",
     "Service Name": "اسم الخدمة",
     "Service Price": "سعر الخدمة بالجنية",
@@ -127,5 +127,11 @@
     "End Time": "وقت النهاية",
     "Edit Schedule": "تعديل موعد عمل",
     "Schedule updated successfully": "تم تعديل الموعد بنجاح",
-    "Choose Office":"اختر الفرع"
+    "Choose Office": "اختر الفرع",
+    "All Tickets": "جميع الطلبات",
+    "Time": "الوقت",
+    "Status": "الحالة",
+    "Options": "الخيارات",
+    "User": "العميل",
+    "Feedback": "التقييم"
 }

@@ -23,7 +23,7 @@ Route::get('/', function(){
                 if (auth()->user()->role->slug == 'superadmin') {
                     return redirect()->route('all_offices');
                 }elseif (auth()->user()->role->slug == 'admin') {
-                    return redirect()->route('tickets');
+                    return redirect()->route('office_tickets');
                 }elseif (auth()->user()->role->slug == 'employee') {
                     return redirect()->route('employeeTickets');
                 }elseif (auth()->user()->role->slug == 'user') {
@@ -88,9 +88,9 @@ Route::group(['middleware' => 'App\Http\Middleware\SuperAdminMiddleware'], funct
 
 
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function(){
-        Route::get('/settings','OfficeController@settings')->name('settings');
-        Route::post('/settings/store','OfficeController@storeSettings')->name('storeSettings');
-        Route::get('/tickets','TicketController@index')->name('tickets');
+        Route::get('/office/settings','OfficeController@settings')->name('settings');
+        Route::post('/office/settings/store','OfficeController@storeSettings')->name('storeSettings');
+        Route::get('/office/tickets','TicketController@officeTickets')->name('office_tickets');
         Route::resource('working-days', 'WorkingDayController');
         Route::resource('schedule', 'ScheduleController');
         Route::get('/working-days/delete/{id}','WorkingDayController@destroy')->name('delete_working_day');

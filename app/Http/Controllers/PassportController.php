@@ -151,6 +151,7 @@ class PassportController extends Controller
 
         return response()->json(['services'=>$services_list]);
     }
+
     public function createTicket(Request $request)
     {
         $request->validate([
@@ -222,6 +223,7 @@ class PassportController extends Controller
                 }
             }
 
+            
             //check if schedule has free time on that shift  (including cancelled ticket)
             $start_time = 0;
             //check if we already have the last ticket object on the selected schedule
@@ -260,10 +262,8 @@ class PassportController extends Controller
 
             }
 
-
-            if($start_time != 0){
+            if($start_time != null && $start_time !== 0){
                 //we were able to define the start time without generate time for the ticket
-
                 if($ticket->shift == 'morning'){
                     $time = strtotime($start_time);
                     $endTime = date("H:i", strtotime('+'.$service->serviceTime.' minutes', $time));
@@ -302,13 +302,61 @@ class PassportController extends Controller
                         $ticket->save();
                     }
                 }
+            }elseif($start_time === null){
+                $ticket->scheduleId = $schedule->id;
+                $ticket->ticketStatus = 'waiting-list';
+                $ticket->save();
             }
         }
 
-        return response()->json(['status'=>'ticket created succeesfully ','ticket'=>$ticket]);
+        return response()->json(['status'=>'success','ticket'=>$ticket]);
+    }
 
+    public function cancelTicket(Request $request){
+        $request->validate([
+            'ticketId' => 'required',
+        ]);
+
+        $ticket = DB::table('tickets')
+        ->join('schedule','tickets.scheduleId','=','schedule.id')
+        ->join('working_days','schedule.workDayId','=','working_days.id')
+        ->join('services','tickets.serviceId','=','services.id')
+        ->where('tickets.id','=',$request->ticketId)
+        ->select('services.serviceAllowedCancelTime as cancel_time', 'working_days.date')->first();
+
+        if(!$ticket){
+            return response()->json(['status'=>'error','message'=>__('Ticket not found')]);
+        }
+        
+        $time = strtotime($ticket->date);
+        $maxDate = date("Y-m-d", strtotime('-'.$ticket ->cancel_time.' days', $time));
+        $today = date("Y-m-d");
+        if($today > $maxDate){
+            return response()->json(['status'=>'error','message'=>__('Ticket max allowed cancellation period reached')]);
+        }
+
+        $ticket = Ticket::find($request->ticketId);
+        $ticket->ticketStatus = 'cancelled';
+        $ticket->save();
+
+        //try to find waiting list ticket with same shift and same service
+        $waitingTicket = Ticket::where('tickets.shift','=',$ticket->shift)
+        ->where('tickets.scheduleId','=',$ticket->scheduleId)
+        ->where('tickets.serviceId','=',$ticket->serviceId)
+        ->where('tickets.ticketStatus','=','waiting-list')
+        ->first();
+
+        if($waitingTicket){
+            $waitingTicket->ticketStatus = 'pending-payment';
+            $waitingTicket->ticketStartTime = $ticket->ticketStartTime;
+            $waitingTicket->ticketEstimatedEndTime = $ticket->ticketEstimatedEndTime;
+            $waitingTicket->save();
+            //send notification to mobile   
+        }
+        return response()->json(['status'=>'success','message'=>__('Ticket cancelled')]);
 
     }
+
     public function workingDays($officeId)
     {
         $workingDays = DB::table('working_days')

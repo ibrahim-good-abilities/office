@@ -27,4 +27,5 @@ Route::get('office/{officeId}/working-days','PassportController@workingDays');
 Route::middleware('auth:api')->group(function () {
     Route::POST('demo', 'PassportController@details');
     Route::POST('create/ticket','PassportController@createTicket');
+    Route::POST('cancel/ticket','PassportController@cancelTicket');
 });

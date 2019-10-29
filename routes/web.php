@@ -100,6 +100,7 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 
 Route::group(['middleware' => 'App\Http\Middleware\EmployeeMiddleware'], function(){
          Route::get('/employee/tickets','TicketController@employeeTickets')->name('employeeTickets');
+         Route::get('/employee/tickets/update/{id}','TicketController@updateTicketStatus')->name('update_ticket_status');
 });
 Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function(){
          Route::get('/user/tickets','TicketController@userTickets')->name('userTickets');

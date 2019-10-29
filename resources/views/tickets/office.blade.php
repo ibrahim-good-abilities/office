@@ -28,7 +28,7 @@
 <table id="tickets" class="display">
     <thead>
         <tr>
-            <th>#</th>
+            <th>#{{ __('Ticket Code') }}</th>
             <th>{{ __('Service Name') }}</th>
             <th>{{ __('Employee') }}</th>
             <th>{{ __('User') }}</th>

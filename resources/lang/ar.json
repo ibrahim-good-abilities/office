@@ -134,5 +134,8 @@
     "Options": "الخيارات",
     "User": "العميل",
     "Feedback": "التقييم",
-    "Offices Tickets": "طلبات المكاتب"
+    "Offices Tickets": "طلبات المكاتب",
+    "Files":"الملفات",
+    "Tasks":"المهام",
+    "Update Ticket Status":"تحديث حالة الطلب"
 }

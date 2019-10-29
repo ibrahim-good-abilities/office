@@ -87,6 +87,7 @@ class CityController extends Controller
         ]);
         $city = City::find($id);
         $city->cityName = request('city_name');
+        $city->save();
         return redirect()->back()->with('success',__('City updated successfully'));
     }
 

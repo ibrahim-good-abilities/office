@@ -143,5 +143,6 @@
     "Update Ticket Status": "تحديث حالة الطلب",
     "Ticket Code": "كود الطلب",
     "Reset Password": "استرجاع كلمة المرور",
-    "Send Password Reset Link": "ارسل رابط استرجاع كلمة المرور"
+    "Send Password Reset Link": "ارسل رابط استرجاع كلمة المرور",
+    "Mark As Done": "إتمام"
 }

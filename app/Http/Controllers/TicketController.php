@@ -100,7 +100,7 @@ class TicketController extends Controller
         ->leftJoin('users as employees','schedule.userId','=','employees.id')
         ->where('working_days.officeId','=',auth()->user()->officeId)
         ->orderBy('tickets.id', 'desc')
-        ->select('services.serviceName as service', 'employees.name as employee','users.name as user','working_days.date','tickets.ticketStartTime as time','tickets.ticketStatus as status','tickets.ticketRate as rate','tickets.ticketFeedback as feedback')->get();
+        ->select('tickets.id','services.serviceName as service', 'employees.name as employee','users.name as user','working_days.date','tickets.ticketStartTime as time','tickets.ticketStatus as status','tickets.ticketRate as rate','tickets.ticketFeedback as feedback')->get();
         return view('tickets.office')
         ->with('tickets',$tickets);
     }
@@ -142,7 +142,7 @@ class TicketController extends Controller
         ->leftJoin('users as employees','schedule.userId','=','employees.id')
         ->where('working_days.officeId','=',$id)
         ->orderBy('tickets.id', 'desc')
-        ->select('services.serviceName as service', 'employees.name as employee','users.name as user','working_days.date','tickets.ticketStartTime as time','tickets.ticketStatus as status','tickets.ticketRate as rate','tickets.ticketFeedback as feedback')->get();
+        ->select('tickets.id','services.serviceName as service', 'employees.name as employee','users.name as user','working_days.date','tickets.ticketStartTime as time','tickets.ticketStatus as status','tickets.ticketRate as rate','tickets.ticketFeedback as feedback')->get();
         return view('tickets.office')
         ->with('tickets',$tickets);
     }

@@ -28,12 +28,13 @@
 <table id="tickets" class="display">
     <thead>
         <tr>
-            <th>#{{ __('Ticket Code') }}</th>
+            <th>#</th>
+            <th>{{ __('Ticket Code') }}</th>
             <th>{{ __('Service Name') }}</th>
             <th>{{ __('User') }}</th>
             <th>{{ __('Time') }}</th>
             <th>{{ __('Files') }}</th>
-            <th>{{__('Options')}}</th>
+            <th>{{__('Mark As Done')}}</th>
         </tr>
     </thead>
 
@@ -41,6 +42,7 @@
         @foreach ($tickets as $ticket)
         <tr>
             <td>{{$loop->iteration}}</td>
+            <td>#{{$ticket->id}}</td>
             <td>{{$ticket->service}}</td>
             <td>{{$ticket->user}}</td>
             <td>{{$ticket->time}}</td>

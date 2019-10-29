@@ -42,7 +42,7 @@
 
 
     <div class="input-name col s12">
-        <input  name="endTime" id="endTime" type="text" class="timepicker validate" value="{{$schedule->endTime}}"placeholder="{{ __('Add Schedule End Time') }}">
+        <input  name="endTime" id="endTime" type="text" class="timepicker validate" value="{{$schedule->leaveTime}}" placeholder="{{ __('Add Schedule Leave Time') }}">
         <label for="endTime">{{ __('End Time') }}</label>
     </div>
 

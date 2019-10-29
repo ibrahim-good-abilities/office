@@ -182,7 +182,6 @@ class PassportController extends Controller
         ->where('tickets.ticketStatus','!=','cancelled')
         ->count();
 
-        $service = DB::table('services')->where('id', $request->serviceId)->first();
         //if yes : assign ticket to first schedule
         if($total_tickets == 0){
             $schedule = $schedule_list->get(0);

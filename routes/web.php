@@ -40,7 +40,7 @@ Route::get('/', function(){
 Route::group(['middleware' => 'App\Http\Middleware\SuperAdminMiddleware'], function(){
 
         //home
-        Route::get('/offices','OfficeController@index')->name('dashboard');
+        Route::get('/dashboard','OfficeController@summary')->name('dashboard');
         //role
         Route::get('/role/create','RoleController@create')->name('add_role');
         Route::post('/role/store','RoleController@store')->name('store_role');

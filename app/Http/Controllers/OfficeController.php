@@ -39,6 +39,19 @@ class OfficeController extends Controller
                 ->with('admins',$admins);
     }
 
+
+    public function summary()
+    {
+        $offices = DB::table('offices')
+        ->leftJoin('working_days','working_days.officeId','=','offices.id')
+        ->leftJoin('schedule','schedule.workDayId','=','working_days.id')
+        ->leftJoin('tickets','tickets.scheduleId','=','schedule.id')
+        ->select('services.serviceName as service', 'employees.name as employee','users.name as user','working_days.date','tickets.ticketStartTime as time','tickets.ticketStatus as status')->get();
+        return view('tickets.office')
+        ->with('tickets',$tickets);
+        return view('offices.settings')->with('office',$office);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

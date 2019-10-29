@@ -97,6 +97,7 @@ class TicketController extends Controller
         ->join('users','tickets.userId','=','users.id')
         ->leftJoin('users as employees','schedule.userId','=','employees.id')
         ->where('working_days.officeId','=',auth()->user()->officeId)
+        ->orderBy('tickets.id', 'desc')
         ->select('services.serviceName as service', 'employees.name as employee','users.name as user','working_days.date','tickets.ticketStartTime as time','tickets.ticketStatus as status')->get();
         return view('tickets.office')
         ->with('tickets',$tickets);

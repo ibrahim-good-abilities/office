@@ -137,5 +137,9 @@
     "Offices Tickets": "طلبات المكاتب",
     "Ticket not found": "الطلب غير مسجل",
     "Ticket cancelled": "تم الغاء الطلب",
-    "Ticket max allowed cancellation period reached": "تم تخطى الوقت المسموح لألغاء الخدمة"
+    "Ticket max allowed cancellation period reached": "تم تخطى الوقت المسموح لألغاء الخدمة",
+    "Files": "الملفات",
+    "Tasks": "المهام",
+    "Update Ticket Status": "تحديث حالة الطلب",
+    "Ticket Code": "كود الطلب"
 }

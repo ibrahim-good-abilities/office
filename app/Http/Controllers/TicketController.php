@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Ticket;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 class TicketController extends Controller
 {
     // public function __construct()
@@ -102,6 +104,32 @@ class TicketController extends Controller
         return view('tickets.office')
         ->with('tickets',$tickets);
     }
+    public function employeeTickets()
+    {
+        $this->middleware('auth');
+
+        $tickets = DB::table('tickets')
+        ->join('schedule','tickets.scheduleId','=','schedule.id')
+        ->join('working_days','schedule.workDayId','=','working_days.id')
+        ->join('services','tickets.serviceId','=','services.id')
+        ->join('users','ticketS.userId','=','users.id')
+        ->Join('users as employees','schedule.userId','=','employees.id')
+        ->whereDate('working_days.date','=', Carbon::today()->toDateString())
+        ->where('schedule.userId','=',auth()->user()->id)
+        ->where('tickets.ticketStatus','!=','resolved')
+        ->where('tickets.ticketStatus','!=','rated')
+        ->orderBy('tickets.id', 'desc')
+        ->select('services.serviceName as service','users.name as user','tickets.id','tickets.ticketStartTime as time')->get();
+        return view('tickets.employee')
+        ->with('tickets',$tickets);
+    }
+    public function updateTicketStatus($ticketid)
+    {
+        $ticket = Ticket::find($ticketid);
+        $ticket->ticketStatus ='resolved';
+        $ticket->save();
+        return redirect()->back();
+    }
 
     public function retrieveOfficeTickets($id)
     {
@@ -119,11 +147,7 @@ class TicketController extends Controller
         ->with('tickets',$tickets);
     }
 
-    public function employeeTickets()
-    {
-        $this->middleware('auth');
-        return view('tickets.employee');
-    }
+
     public function userTickets()
     {
         $this->middleware('auth');

@@ -230,6 +230,10 @@ class PassportController extends Controller
             $start_time = 0;
             //check if we already have the last ticket object on the selected schedule
             if( $last_ticket->scheduleId == $schedule->id && $last_ticket->shift == $request->shift){
+                //TODO::
+                //get all cancelled ticket on that schedule at the same shift
+                //foreach cancelled ticket check if any active ticket has the same start time
+                //if not calc the end time and check if no active ticket on that schedule at the same shift start between ticket start and ticket end
                 $start_time = $last_ticket->ticketEstimatedEndTime;
             }else{
                 //find the the last ticket object on the selected schedule same shift
@@ -337,22 +341,39 @@ class PassportController extends Controller
             return response()->json(['status'=>'error','message'=>__('Ticket max allowed cancellation period reached')]);
         }
 
-        $ticket = Ticket::find($request->ticketId);
-        $ticket->ticketStatus = 'cancelled';
-        $ticket->save();
-
-        //try to find waiting list ticket with same shift and same service
-        $waitingTicket = Ticket::where('tickets.shift','=',$ticket->shift)
-        ->where('tickets.scheduleId','=',$ticket->scheduleId)
-        ->where('tickets.serviceId','=',$ticket->serviceId)
-        ->where('tickets.ticketStatus','=','waiting-list')
+        $TicketToCancelObject = DB::table('tickets')
+        ->join('schedule','tickets.scheduleId','=','schedule.id')
+        ->join('working_days','schedule.workDayId','=','working_days.id')
+        ->where('tickets.id','=',$request->ticketId)
+        ->select('tickets.id','working_days.id as working_day_id')
         ->first();
 
-        if($waitingTicket){
+        $ticketToCancel = Ticket::find($request->ticketId);
+        $ticketToCancel->ticketStatus = 'cancelled';
+        $ticketToCancel->save();
+
+        //try to find waiting list ticket with same shift and same service
+        $waitingTicketObject = DB::table('tickets')
+        ->join('schedule','tickets.scheduleId','=','schedule.id')
+        ->join('working_days','schedule.workDayId','=','working_days.id')
+        ->join('services','tickets.serviceId','=','services.id')
+        ->where('working_days.id','=',$TicketToCancelObject->working_day_id)
+        ->where('tickets.shift','=',$ticketToCancel->shift)
+        ->where('tickets.serviceId','=',$ticketToCancel->serviceId)
+        ->where('tickets.ticketStatus','=','waiting-list')
+        ->orderBy('tickets.id', 'asc')
+        ->select('tickets.id','services.serviceTime')
+        ->first();
+
+
+        if($waitingTicketObject){
+            $waitingTicket = Ticket::find($waitingTicketObject->id);
             $waitingTicket->ticketStatus = 'pending-payment';
-            $waitingTicket->ticketStartTime = $ticket->ticketStartTime;
-            $waitingTicket->ticketEstimatedEndTime = $ticket->ticketEstimatedEndTime;
+            $waitingTicket->ticketStartTime = $ticketToCancel->ticketStartTime;
+            $waitingTicket->ticketEstimatedEndTime = $ticketToCancel->ticketEstimatedEndTime;
+            $waitingTicket->scheduleId = $ticketToCancel->scheduleId;
             $waitingTicket->save();
+            //TODO:
             //send notification to mobile
         }
         return response()->json(['status'=>'success','message'=>__('Ticket cancelled')]);

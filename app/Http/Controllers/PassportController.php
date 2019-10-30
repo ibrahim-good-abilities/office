@@ -368,17 +368,21 @@ class PassportController extends Controller
 
         return response()->json(['workingDays'=>$workingDays]);
     }
+
+
     public function payment(Request $request)
     {
         $request->validate([
             'ticketId' =>'required',
         ]);
+
+        $ticket = Ticket::find($request->ticketId);
+        $ticket->ticketStatus = "in-progress";
+        $ticket->save();
+
         $requirements =explode(',',request('requirements'));
         foreach($requirements as $requirement_id)
         {
-              $ticket = Ticket::find($request->ticketId);
-              $ticket->ticketStatus = "in-progress";
-              $ticket->save();
               $file = $request->file($requirement_id);
               $requirement = new File();
               $fileSaveAsName = time() . "usersFiles." .$file->getClientOriginalExtension();
@@ -390,7 +394,7 @@ class PassportController extends Controller
               $requirement->requirementId = $requirement_id;
               $requirement->save();
         }
-    return response()->json(['status' =>'success'] );
+        return response()->json(['status' =>'success'] );
     }
 
     //history of user tickets
@@ -405,10 +409,28 @@ class PassportController extends Controller
         ->where('tickets.userId',$userId)
         ->select('tickets.id','services.serviceName as name','tickets.ticketStatus as status',
         'tickets.ticketStartTime as time','tickets.ticketRate as rate'
-        ,'working_days.date as workingday-date','working_days.id as workingday-id')
+        ,'working_days.date as workingday_date','working_days.id as workingday-id')
         ->get();
          return  response()->json(['status' =>'success','history'=>$tickets] );
     }
 
+
+    public function rate(Request $request)
+    {
+        $request->validate([
+            'ticketId' =>'required',
+            'rate' =>'required|max:5|min:1',
+        ]);
+
+        $ticket = Ticket::find($request->ticketId);
+        $ticket->ticketRate = $request->rate;
+        if($request->has('feedback')){
+            $ticket->ticketFeedback = $request->feedback;
+        }
+        $ticket->ticketStatus = 'rated';
+        $ticket->save();
+        
+        return response()->json(['status' =>'success'] );
+    }
 
 }

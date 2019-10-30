@@ -96,7 +96,14 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
         Route::resource('working-days', 'WorkingDayController');
         Route::resource('schedule', 'ScheduleController');
         Route::get('/working-days/delete/{id}','WorkingDayController@destroy')->name('delete_working_day');
-});
+        //user
+        Route::get('/office/users','RegisterController@adminIndex')->name('admin_all_users');
+        Route::get('/office/users/delete/{id}','RegisterController@adminDestroy')->name('admin_delete_user');
+        Route::get('/office/users/create','RegisterController@adminCreate')->name('admin_add_user');
+        Route::post('/office/users/store','RegisterController@adminStore')->name('admin_store_user');
+        Route::get('/office/users/edit/{id}','RegisterController@adminEdit')->name('admin_edit_user');
+        Route::post('/office/users/update/{id}','RegisterController@adminUpdate')->name('admin_update_user');
+    });
 
 Route::group(['middleware' => 'App\Http\Middleware\EmployeeMiddleware'], function(){
          Route::get('/employee/tickets','TicketController@employeeTickets')->name('employeeTickets');

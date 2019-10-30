@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 //Auth
-Route::post('login', 'PassportController@login');
-Route::post('register', 'PassportController@register');
-Route::post('register2', 'PassportController@register2');
+Route::post('login', 'PassportController@login')->middleware('cors');
+Route::post('register', 'PassportController@register')->middleware('cors');
+Route::post('register2', 'PassportController@register2')->middleware('cors');
 
 //reset password
 Route::get('/resetpassword','PassportController@resetpassword');

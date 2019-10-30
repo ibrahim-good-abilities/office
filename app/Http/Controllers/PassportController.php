@@ -172,7 +172,9 @@ class PassportController extends Controller
         $ticket->save();
 
         //get office schedule list in order
-        $schedule_list = DB::table('schedule')->where('available','=',1)->where('workDayId','=',$request->workDayId)->get();
+        $schedule_list = DB::table('schedule')
+        ->where('available','=',1)
+        ->where('workDayId','=',$request->workDayId)->get();
 
         //ask if this day total  tickets is 0
         $total_tickets = DB::table('tickets')
@@ -223,7 +225,7 @@ class PassportController extends Controller
                 }
             }
 
-            
+
             //check if schedule has free time on that shift  (including cancelled ticket)
             $start_time = 0;
             //check if we already have the last ticket object on the selected schedule
@@ -327,7 +329,7 @@ class PassportController extends Controller
         if(!$ticket){
             return response()->json(['status'=>'error','message'=>__('Ticket not found')]);
         }
-        
+
         $time = strtotime($ticket->date);
         $maxDate = date("Y-m-d", strtotime('-'.$ticket ->cancel_time.' days', $time));
         $today = date("Y-m-d");
@@ -351,7 +353,7 @@ class PassportController extends Controller
             $waitingTicket->ticketStartTime = $ticket->ticketStartTime;
             $waitingTicket->ticketEstimatedEndTime = $ticket->ticketEstimatedEndTime;
             $waitingTicket->save();
-            //send notification to mobile   
+            //send notification to mobile
         }
         return response()->json(['status'=>'success','message'=>__('Ticket cancelled')]);
 
@@ -372,11 +374,11 @@ class PassportController extends Controller
             'ticketId' =>'required',
         ]);
         $requirements =explode(',',request('requirements'));
-
-
-
         foreach($requirements as $requirement_id)
         {
+              $ticket = Ticket::find($request->ticketId);
+              $ticket->ticketStatus = "in-progress";
+              $ticket->save();
               $file = $request->file($requirement_id);
               $requirement = new File();
               $fileSaveAsName = time() . "usersFiles." .$file->getClientOriginalExtension();
@@ -391,7 +393,22 @@ class PassportController extends Controller
     return response()->json(['status' =>'success'] );
     }
 
-
+    //history of user tickets
+    public function history()
+    {
+        $userId = Auth::user()->id;
+        $tickets = DB::table('tickets')
+        ->join('users','users.id','=','tickets.userId')
+        ->join('services','services.id','=','tickets.serviceId')
+        ->join('schedule','tickets.scheduleId','=','schedule.id')
+        ->join('working_days','schedule.workDayId','=','working_days.id')
+        ->where('tickets.userId',$userId)
+        ->select('tickets.id','services.serviceName as name','tickets.ticketStatus as status',
+        'tickets.ticketStartTime as time','tickets.ticketRate as rate'
+        ,'working_days.date as workingday-date','working_days.id as workingday-id')
+        ->get();
+         return  response()->json(['status' =>'success','history'=>$tickets] );
+    }
 
 
 }

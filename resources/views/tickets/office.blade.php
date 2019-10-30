@@ -50,7 +50,7 @@
             <td>{{$ticket->user}}</td>
             <td>{{$ticket->date}}</td>
             <td>{{$ticket->time}}</td>
-            <td>{{$ticket->status}}</td>
+            <td>{{__($ticket->status)}}</td>
             <td data-rate="{{$ticket->rate}}" data-feedback="{{$ticket->feedback}}">
                 @if($ticket->status == 'rated')
                 <a  href="#feedback" class="modal-trigger">

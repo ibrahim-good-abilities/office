@@ -12,21 +12,21 @@
         <tr>
             <th>#</th>
             <th>{{ __('Office Name') }}</th>
-            <th>{{__('All Tickets')}}</th>
-            <th>{{__('All Rates')}}</th>
+            <th>{{ __('City Name') }}</th>
+            <th>{{__('Total Tickets')}}</th>
+            <th>{{__('Total Income')}}</th>
 
         </tr>
     </thead>
     <tbody>
 
         @foreach($offices as $office)
-            <tr  data-office_id="{{$office->id}}">
+            <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>{{ $office->office }}</td>
                 <td>{{ $office->city }}</td>
-                <td><a href="{{ route('retrieve_office_tickets',$office->id) }}">{{ $office->total_tickets }}</a></td>
+                <td>{{ $office->total_tickets }}</td>
                 <td>{{ $office->cost }}</td>
-
             </tr>
         @endforeach
     </tbody>

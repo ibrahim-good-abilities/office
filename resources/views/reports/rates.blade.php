@@ -13,20 +13,19 @@
             <th>#</th>
             <th>{{ __('Employee Name') }}</th>
             <th>{{__('All Tickets')}}</th>
-            <th>{{__('All Rates')}}</th>
+            <th>{{__('Average Rates')}}</th>
 
         </tr>
     </thead>
     <tbody>
-
+        @foreach($employees as $employee)
             <tr>
-                <td>1</td>
-                <td>ali</td>
-                <td>23</td>
-                <td>0</td>
-
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $employee->name }}</td>
+                <td>{{ $employee->total_tickets }}</td>
+                <td>{{ $employee->totalRate }} / 5</td>
             </tr>
-
+        @endforeach
     </tbody>
 </table>
 <!-- orders table -->

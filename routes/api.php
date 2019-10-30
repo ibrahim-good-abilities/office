@@ -13,17 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 //Auth
-Route::post('login', 'PassportController@login')->middleware('cors');
-Route::post('register', 'PassportController@register')->middleware('cors');
+Route::post('login', 'PassportController@login');
+Route::post('register', 'PassportController@register');
 
 //reset password
-Route::get('/resetpassword','PassportController@resetpassword')->middleware('cors');
+Route::get('/resetpassword','PassportController@resetpassword');
 //cities
-Route::get('/cities','PassportController@cities')->middleware('cors');
+Route::get('/cities','PassportController@cities');
 //services
-Route::get('/services','PassportController@services')->middleware('cors');
+Route::get('/services','PassportController@services');
 //working days
-Route::get('office/{officeId}/working-days','PassportController@workingDays')->middleware('cors');
+Route::get('office/{officeId}/working-days','PassportController@workingDays');
 
 Route::middleware('auth:api')->group(function () {
     Route::POST('demo', 'PassportController@details');

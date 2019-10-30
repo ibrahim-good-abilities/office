@@ -14,7 +14,6 @@
 
 use Illuminate\Routing\Router;
 
-
 Auth::routes(['register' => false]);
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/', function(){
@@ -83,7 +82,9 @@ Route::group(['middleware' => 'App\Http\Middleware\SuperAdminMiddleware'], funct
         //requirements
         Route::post('/requirement/store','RequirementController@store')->name('store_requirement');
         Route::get('/requirement/delete/{id}','RequirementController@destroy')->name('delete_requirement');
-
+        //reports
+        Route::get('operations','OfficeController@operations')->name('operations');
+        Route::get('rates','OfficeController@rates')->name('rates');
     });
 
 
@@ -109,7 +110,6 @@ Route::group(['middleware' => 'App\Http\Middleware\EmployeeMiddleware'], functio
          Route::get('/employee/tickets','TicketController@employeeTickets')->name('employeeTickets');
          Route::get('/employee/tickets/update/{id}','TicketController@updateTicketStatus')->name('update_ticket_status');
 });
-
 
 
 

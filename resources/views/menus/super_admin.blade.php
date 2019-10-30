@@ -86,3 +86,19 @@
             </ul>
         </div>
 </li>
+<li class="bold"><a class="collapsible-header waves-effect waves-cyan" href="javascript:void(0)"><i class="material-icons">list</i>
+        <span class="menu-title" data-i18n="">{{ __('Reports') }}</span></a>
+        <div class="collapsible-body">
+            <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li>
+                        <a class="collapsible-body" href="{{route('operations')}}" data-i18n=""><i class="material-icons">list</i>
+                              <span>{{ __('Operations') }}</span>
+                         </a>
+                    </li>
+                    <li>
+                        <a class="collapsible-body" href="{{route('rates')}}" data-i18n=""><i class="material-icons">list</i><span>{{ __('Rates') }}</span></a>
+                    </li>
+
+            </ul>
+        </div>
+</li>

@@ -153,5 +153,10 @@
     "on-hold":"معلقة",
     "cancelled":" تم الالغاء",
     "in-progress":"جاهزة للتنفيذ",
-    "User updated successfully":"تم تحديث بيانات المستخدم"
+    "User updated successfully":"تم تحديث بيانات المستخدم",
+    "Reports":"التقارير",
+    "Rates":"التقيمات",
+    "Operations":"العمليات",
+    "Employee Name" :"اسم الموظف",
+    "All Rates" :"اجمالي التقيمات"
 }

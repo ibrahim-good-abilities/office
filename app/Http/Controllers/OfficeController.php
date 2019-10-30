@@ -53,6 +53,20 @@ class OfficeController extends Controller
         return view('offices.superadmin.index')
         ->with('offices',$offices);
     }
+    public function operations()
+    {
+        $offices = DB::table('offices')
+        ->join('cities','cities.id','=','offices.cityId')
+        ->leftJoin('working_days','working_days.officeId','=','offices.id')
+        ->leftJoin('schedule','schedule.workDayId','=','working_days.id')
+        ->leftJoin('tickets','tickets.scheduleId','=','schedule.id')
+        ->select('offices.officeName as office','offices.id as id', 'cities.cityName as city',DB::raw('COUNT(tickets.id) as total_tickets'),DB::raw('SUM(tickets.ticketCost)  as cost'))
+        ->groupBy('offices.officeName','offices.id','cities.cityName')
+        ->get();
+
+        return view('reports.operations')
+        ->with('offices',$offices);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -225,4 +239,22 @@ class OfficeController extends Controller
 
 
     }
+  public function rates()
+    {
+    //     $employees = DB::table('users')
+    //     ->leftJoin('schedule','schedule.userId','=','users.id')
+    //     ->leftJoin('tickets','schedule.id','=','tickets.scheduleId')
+    //     //->leftJoin('tickets as ratedTickets','schedule.id','=','tickets.scheduleId')
+    //     ->leftJoin('tickets as ratedTickets',function($join){
+    //         $join->on('schedule.id','=','ratedTickets.scheduleId');
+    //         $join->where('ratedTickets.ticketStatus','=','rated');
+    //     })
+    //     ->where('tickets.ticketStatus','<>','cancelled')
+    //     ->where('tickets.ticketStatus','<>','waiting-list')
+    //     ->select('users.name as name',DB::raw('COUNT(tickets.id) as total_tickets'),DB::raw('SUM(ratedTickets.ticketRate)  as totalRate'))
+    //     ->groupBy('users.name')
+    //     ->get();
+    //     dd($employees);
+    return view('reports.rates');
+     }
 }

@@ -15,16 +15,15 @@ use Illuminate\Http\Request;
 //Auth
 Route::post('login', 'PassportController@login')->middleware('cors');
 Route::post('register', 'PassportController@register')->middleware('cors');
-Route::post('register2', 'PassportController@register2')->middleware('cors');
 
 //reset password
-Route::get('/resetpassword','PassportController@resetpassword');
+Route::get('/resetpassword','PassportController@resetpassword')->middleware('cors');
 //cities
-Route::get('/cities','PassportController@cities');
+Route::get('/cities','PassportController@cities')->middleware('cors');
 //services
-Route::get('/services','PassportController@services');
+Route::get('/services','PassportController@services')->middleware('cors');
 //working days
-Route::get('office/{officeId}/working-days','PassportController@workingDays');
+Route::get('office/{officeId}/working-days','PassportController@workingDays')->middleware('cors');
 
 Route::middleware('auth:api')->group(function () {
     Route::POST('demo', 'PassportController@details');

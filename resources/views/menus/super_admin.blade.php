@@ -98,6 +98,9 @@
                     <li>
                         <a class="collapsible-body" href="{{route('rates')}}" data-i18n=""><i class="material-icons">list</i><span>{{ __('Rates') }}</span></a>
                     </li>
+                    <li>
+                        <a class="collapsible-body" href="{{route('attendance')}}" data-i18n=""><i class="material-icons">list</i><span>{{ __('Attendance') }}</span></a>
+                    </li>
 
             </ul>
         </div>

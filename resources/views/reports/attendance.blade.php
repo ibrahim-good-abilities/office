@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', __('Operations'))
+@section('title', __('Attendance'))
 @section('page_css')
 <link rel="stylesheet" type="text/css" href="{{asset('resources/vendors/data-tables/css/jquery.dataTables.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('resources/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css')}}">
@@ -11,22 +11,22 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>{{ __('Office Name') }}</th>
-            <th>{{ __('City Name') }}</th>
-            <th>{{__('Total Tickets')}}</th>
-            <th>{{__('Total Income')}}</th>
+            <th>{{ __('Employee Name') }}</th>
+            <th>{{ __('Official Work Days') }}</th>
+            <th>{{__('Actual Work Days')}}</th>
+            <th>{{__('Absent Days')}}</th>
 
         </tr>
     </thead>
     <tbody>
 
-        @foreach($offices as $office)
+        @foreach($employees as $employee)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{ $office->office }}</td>
-                <td>{{ $office->city }}</td>
-                <td>{{ $office->total_tickets }}</td>
-                <td>{{ $office->cost }}</td>
+                <td>{{ $employee->name }}</td>
+                <td>{{ $employee->official }}</td>
+                <td>{{ $employee->actual }}</td>
+                <td>{{ $employee->official - $employee->actual }}</td>
             </tr>
         @endforeach
     </tbody>

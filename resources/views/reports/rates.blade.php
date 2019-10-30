@@ -7,7 +7,7 @@
 @endsection
 @section('middle_content')
 <!-- orders table -->
-<table id="offices" class="subscription-table highlight">
+<table id="report" class="subscription-table highlight">
     <thead>
         <tr>
             <th>#</th>
@@ -33,6 +33,6 @@
 <script src="{{asset('resources/vendors/data-tables/js/jquery.dataTables.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('resources/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('resources/vendors/data-tables/js/dataTables.select.min.js')}}" type="text/javascript"></script>
-<script src="{{ asset('resources/js/offices.js')}}" type="text/javascript"></script>
+<script src="{{ asset('resources/js/report.js')}}" type="text/javascript"></script>
 @endsection
 @endsection

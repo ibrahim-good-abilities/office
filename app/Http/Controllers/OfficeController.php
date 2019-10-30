@@ -266,4 +266,22 @@ class OfficeController extends Controller
         return view('reports.rates')
         ->with('employees',$employees);
      }
+
+
+    public function attendance()
+    {
+        $employees = DB::table('users')
+        ->join('roles','roles.id','=','users.roleId')
+        ->leftJoin('schedule','schedule.userId','=','users.id')
+        ->leftJoin('schedule as attend_schedule',function($join){
+            $join->on('attend_schedule.userId','=','users.id');
+            $join->where('attend_schedule.available','=','1');
+        })
+        ->where('roles.slug','=','employee')
+        ->select('users.name as name',DB::raw('IFNULL(COUNT(schedule.id),0) as official'),DB::raw('IFNULL(COUNT(attend_schedule.id),0) as actual'))
+        ->groupBy('users.name')
+        ->get();
+        return view('reports.attendance')
+        ->with('employees',$employees);
+     }
 }

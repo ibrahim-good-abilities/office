@@ -160,5 +160,9 @@
     "Employee Name": "اسم الموظف",
     "Average Rates": "متوسط التقيمات",
     "Total Tickets": "عدد العمليات",
-    "Total Income": "المبالغ المستلمة"
+    "Total Income": "المبالغ المستلمة",
+    "Official Work Days": "أيام العمل الرسمية",
+    "Actual Work Days": "أيام العمل الفعلية",
+    "Absent Days": "أيام الغياب",
+    "Attendance": "الحضور"
 }

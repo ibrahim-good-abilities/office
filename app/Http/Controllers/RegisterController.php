@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\User;
 use App\Role;
+use App\City;
 
 class RegisterController extends Controller
 {
@@ -38,11 +39,13 @@ class RegisterController extends Controller
      */
     public function create()
     {
+        $cities = City::all();
         $roles = Role::all()->where('roleName','!=','User');
         $offices = Office::all();
         return view('users.add')
                 ->with('roles',$roles)
-                ->with('offices',$offices);
+                ->with('offices',$offices)
+                ->with('cities',$cities);
     }
 
     /**
@@ -91,13 +94,14 @@ class RegisterController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-
+        $cities = City::all();
         $roles =Role::all();
         $offices = Office::all();
         return view('users/edit')
             ->with('user',$user)
             ->with('roles',$roles)
-            ->with('offices',$offices);
+            ->with('offices',$offices)
+            ->with('cities',$cities);
 
     }
 

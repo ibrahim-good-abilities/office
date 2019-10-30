@@ -88,7 +88,7 @@ class RoleController extends Controller
     {
         $request->validate([
             'roleName' => ['required','unique:roles'],
-            'slug' => ['required', 'string', 'max:255', 'unique:roles', 'alpha_dash']
+            'slug' => 'required', 'string', 'max:255', 'unique:roles'.$id, 'alpha_dash'
         ]);
         $role = Role::find($id);
         $role->roleName = request('roleName');

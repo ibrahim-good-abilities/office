@@ -101,6 +101,14 @@
                             </select>
                             <label>{{ __('Role') }}</label>
                          </div>
+                         <div class="row">
+                            <select class="icons" name="cityId">
+                                <option value="" disabled selected>{{ __('Choose City') }}</option>
+                                @foreach($cities as $city)
+                                        <option  value="{{$city->id}}"  name="officeId" class="circle"> {{$city->cityName}} </option>
+                                @endforeach
+                            </select>
+                         </div>
                          <div class="row ">
                             <select class="icons"  name="officeId">
                                 <option value="" disabled selected>{{ __('Choose Office') }}</option>

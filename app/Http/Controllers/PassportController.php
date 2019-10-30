@@ -33,7 +33,7 @@ class PassportController extends Controller
             // 'userIdFile'=>['required','file'],
             'cityId' => ['required'],
             'userAddress' => ['required'],
-            'userIdNum' => ['required','max:14'],
+            'userIdNum' => ['required','max:14','min:14','unique:users'],
             'userJopTitle' => 'required',
         ]);
 

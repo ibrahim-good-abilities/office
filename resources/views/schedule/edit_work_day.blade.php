@@ -68,7 +68,7 @@
         <tr>
             <td>{{$loop->iteration}}</td>
             <td>{{$schedule->employee}}</td>
-            <td>{{$schedule->available}}</td>
+            <td>{{$schedule->available==1?'نعم':'لا'}}</td>
             <td>{{$schedule->start_time}}</td>
             <td>{{$schedule->end_time}}</td>
             <td>

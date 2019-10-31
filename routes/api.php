@@ -24,6 +24,8 @@ Route::get('/cities','PassportController@cities');
 Route::get('/services','PassportController@services');
 //working days
 Route::get('office/{officeId}/working-days','PassportController@workingDays');
+//testUploadFile
+Route::post('/uploadfile','PassportController@uploadfile');
 
 Route::middleware('auth:api')->group(function () {
     Route::POST('demo', 'PassportController@details');

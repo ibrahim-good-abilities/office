@@ -409,6 +409,16 @@ class PassportController extends Controller
         ->get();
          return  response()->json(['status' =>'success','history'=>$tickets] );
     }
+    public function uploadfile(Request $request)
+    {
+        $file = $request->file('file');
+        $file_name = time() . '.' . $file->getClientOriginalExtension();
+        $destinationPath = public_path('/usersFiles/uploadFile/');
+       // dd($destinationPath);
+        $file->move($destinationPath, $file_name);
+        $file_url = base_path().'/public'.'/usersFiles/uploadFile/'.$file_name;
+        return response()->json(['file_url'=>$file_url]);
 
+    }
 
 }

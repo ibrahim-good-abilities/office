@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
 
     var language = "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json";
 
@@ -13,5 +13,12 @@ $(document).ready(function() {
             { orderable: false, targets: 5 }
         ]
     });
-
+    $(document).ready(function() {
+        var dateToday = new Date();
+        $('.days-datepicker').datepicker({
+            firstDay: 4,
+            minDate: dateToday,
+            format: 'yyyy-mm-dd'
+        });
+    });
 });

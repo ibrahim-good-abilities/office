@@ -400,20 +400,21 @@ class PassportController extends Controller
         $ticket = Ticket::find($request->ticketId);
         $ticket->ticketStatus = "in-progress";
         $ticket->save();
-
-        $requirements =explode(',',request('requirements'));
-        foreach($requirements as $requirement_id)
-        {
-              $file = $request->file($requirement_id);
-              $requirement = new File();
-              $fileSaveAsName = time() . "usersFiles." .$file->getClientOriginalExtension();
-              $upload_path = public_path('/usersFiles/files/');
-              $file_url = $upload_path . $fileSaveAsName;
-              $file->move($upload_path, $fileSaveAsName);
-              $requirement->fileUrl = '/usersFiles/files/'.$fileSaveAsName;
-              $requirement->ticketId = $request->ticketId;
-              $requirement->requirementId = $requirement_id;
-              $requirement->save();
+        if($request->has('requirements')){
+            $requirements =explode(',',request('requirements'));
+            foreach($requirements as $requirement_id)
+            {
+                $file = $request->file($requirement_id);
+                $requirement = new File();
+                $fileSaveAsName = time() . "usersFiles." .$file->getClientOriginalExtension();
+                $upload_path = public_path('/usersFiles/files/');
+                $file_url = $upload_path . $fileSaveAsName;
+                $file->move($upload_path, $fileSaveAsName);
+                $requirement->fileUrl = '/usersFiles/files/'.$fileSaveAsName;
+                $requirement->ticketId = $request->ticketId;
+                $requirement->requirementId = $requirement_id;
+                $requirement->save();
+            }
         }
         return response()->json(['status' =>'success'] );
     }

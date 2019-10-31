@@ -85,6 +85,7 @@ Route::group(['middleware' => 'App\Http\Middleware\SuperAdminMiddleware'], funct
         //reports
         Route::get('operations','OfficeController@operations')->name('operations');
         Route::get('rates','OfficeController@rates')->name('rates');
+        Route::get('attendance','OfficeController@attendance')->name('attendance');
     });
 
 

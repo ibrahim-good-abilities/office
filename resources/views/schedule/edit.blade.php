@@ -35,14 +35,30 @@
 <form action="{{route('schedule.update',$schedule->id)}}" method="post">
     @csrf
     @method('PUT')
-    <div class="input-name col s12">
-        <input  name="startTime" id="startTime" type="text" class="timepicker validate" value="{{$schedule->startTime}}" placeholder="{{ __('Add Schedule Start Time') }}">
-        <label for="startTime">{{ __('Start Time') }}</label>
+    <div class="input-name col s3">
+
+        <!-- Switch -->
+        <div class="switch">
+            <label>
+            وقت عمل رسمى
+            <input type="checkbox"  name="officialTime" {{ $schedule->officialTime ? 'checked':'' }}>
+            <span class="lever"></span>
+            غير رسمى
+            </label>
+        </div>
+        <br/>
+        <br/>
     </div>
 
 
     <div class="input-name col s12">
-        <input  name="endTime" id="endTime" type="text" class="timepicker validate" value="{{$schedule->leaveTime}}" placeholder="{{ __('Add Schedule Leave Time') }}">
+        <input  name="startTime" id="startTime" type="text" class="timepicker validate official" value="{{$schedule->startTime}}" placeholder="{{ __('Add Schedule Start Time') }}">
+        <label for="startTime">{{ __('Start Time') }}</label>
+    </div>
+
+
+    <div class="input-name col s12 ">
+        <input  name="endTime" id="endTime" type="text" class="timepicker validate official" value="{{$schedule->leaveTime}}" placeholder="{{ __('Add Schedule Leave Time') }}">
         <label for="endTime">{{ __('End Time') }}</label>
     </div>
 
@@ -60,19 +76,6 @@
         </div>
     </div>
 
-    <div class="input-name col s3">
-        <br/>
-        <br/>
-        <!-- Switch -->
-        <div class="switch">
-            <label>
-            وقت عمل رسمى
-            <input type="checkbox"  name="officialTime" {{ $schedule->officialTime ? 'checked':'' }}>
-            <span class="lever"></span>
-            غير رسمى
-            </label>
-        </div>
-    </div>
 
     <div class="input-field col s12">
         <button class="btn cyan waves-effect waves-light right" type="submit" name="action">{{ __('Submit') }}

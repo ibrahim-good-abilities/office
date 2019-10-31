@@ -59,8 +59,13 @@ class OfficeController extends Controller
         ->join('cities','cities.id','=','offices.cityId')
         ->leftJoin('working_days','working_days.officeId','=','offices.id')
         ->leftJoin('schedule','schedule.workDayId','=','working_days.id')
-        ->leftJoin('tickets','tickets.scheduleId','=','schedule.id')
-        ->select('offices.officeName as office','offices.id as id', 'cities.cityName as city',DB::raw('COUNT(tickets.id) as total_tickets'),DB::raw('SUM(tickets.ticketCost)  as cost'))
+        ->leftJoin('tickets',function($join){
+            $join->on('schedule.id','=','tickets.scheduleId');
+            $join->where('tickets.ticketStatus','<>','cancelled');
+            $join->where('tickets.ticketStatus','<>','on-hold');
+            $join->where('tickets.ticketStatus','<>','waiting-list');
+        })
+        ->select('offices.officeName as office','offices.id as id', 'cities.cityName as city',DB::raw('IFNULL(COUNT(tickets.id),0) as total_tickets'),DB::raw('IFNULL(SUM(tickets.ticketCost),0)  as cost'))
         ->groupBy('offices.officeName','offices.id','cities.cityName')
         ->get();
 
@@ -241,20 +246,42 @@ class OfficeController extends Controller
     }
   public function rates()
     {
-    //     $employees = DB::table('users')
-    //     ->leftJoin('schedule','schedule.userId','=','users.id')
-    //     ->leftJoin('tickets','schedule.id','=','tickets.scheduleId')
-    //     //->leftJoin('tickets as ratedTickets','schedule.id','=','tickets.scheduleId')
-    //     ->leftJoin('tickets as ratedTickets',function($join){
-    //         $join->on('schedule.id','=','ratedTickets.scheduleId');
-    //         $join->where('ratedTickets.ticketStatus','=','rated');
-    //     })
-    //     ->where('tickets.ticketStatus','<>','cancelled')
-    //     ->where('tickets.ticketStatus','<>','waiting-list')
-    //     ->select('users.name as name',DB::raw('COUNT(tickets.id) as total_tickets'),DB::raw('SUM(ratedTickets.ticketRate)  as totalRate'))
-    //     ->groupBy('users.name')
-    //     ->get();
-    //     dd($employees);
-    return view('reports.rates');
+        $employees = DB::table('users')
+        ->join('roles','roles.id','=','users.roleId')
+        ->leftJoin('schedule','schedule.userId','=','users.id')
+        ->leftJoin('tickets',function($join){
+            $join->on('schedule.id','=','tickets.scheduleId');
+            $join->where('tickets.ticketStatus','<>','cancelled');
+            $join->where('tickets.ticketStatus','<>','on-hold');
+            $join->where('tickets.ticketStatus','<>','waiting-list');
+        })
+        ->leftJoin('tickets as ratedTickets',function($join){
+            $join->on('schedule.id','=','ratedTickets.scheduleId');
+            $join->where('ratedTickets.ticketStatus','=','rated');
+        })
+        ->where('roles.slug','=','employee')
+        ->select('users.name as name',DB::raw('IFNULL(COUNT(tickets.id),0) as total_tickets'),DB::raw("IFNULL(IFNULL(SUM(ratedTickets.ticketRate),0)/IFNULL(COUNT(ratedTickets.id),0),'-')  as totalRate"))
+        ->groupBy('users.name')
+        ->get();
+        return view('reports.rates')
+        ->with('employees',$employees);
+     }
+
+
+    public function attendance()
+    {
+        $employees = DB::table('users')
+        ->join('roles','roles.id','=','users.roleId')
+        ->leftJoin('schedule','schedule.userId','=','users.id')
+        ->leftJoin('schedule as attend_schedule',function($join){
+            $join->on('attend_schedule.userId','=','users.id');
+            $join->where('attend_schedule.available','=','1');
+        })
+        ->where('roles.slug','=','employee')
+        ->select('users.name as name',DB::raw('IFNULL(COUNT(schedule.id),0) as official'),DB::raw('IFNULL(COUNT(attend_schedule.id),0) as actual'))
+        ->groupBy('users.name')
+        ->get();
+        return view('reports.attendance')
+        ->with('employees',$employees);
      }
 }

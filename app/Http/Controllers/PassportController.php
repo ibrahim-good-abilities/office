@@ -230,6 +230,10 @@ class PassportController extends Controller
             $start_time = 0;
             //check if we already have the last ticket object on the selected schedule
             if( $last_ticket->scheduleId == $schedule->id && $last_ticket->shift == $request->shift){
+                //TODO::
+                //get all cancelled ticket on that schedule at the same shift
+                //foreach cancelled ticket check if any active ticket has the same start time
+                //if not calc the end time and check if no active ticket on that schedule at the same shift start between ticket start and ticket end
                 $start_time = $last_ticket->ticketEstimatedEndTime;
             }else{
                 //find the the last ticket object on the selected schedule same shift
@@ -337,22 +341,39 @@ class PassportController extends Controller
             return response()->json(['status'=>'error','message'=>__('Ticket max allowed cancellation period reached')]);
         }
 
-        $ticket = Ticket::find($request->ticketId);
-        $ticket->ticketStatus = 'cancelled';
-        $ticket->save();
-
-        //try to find waiting list ticket with same shift and same service
-        $waitingTicket = Ticket::where('tickets.shift','=',$ticket->shift)
-        ->where('tickets.scheduleId','=',$ticket->scheduleId)
-        ->where('tickets.serviceId','=',$ticket->serviceId)
-        ->where('tickets.ticketStatus','=','waiting-list')
+        $TicketToCancelObject = DB::table('tickets')
+        ->join('schedule','tickets.scheduleId','=','schedule.id')
+        ->join('working_days','schedule.workDayId','=','working_days.id')
+        ->where('tickets.id','=',$request->ticketId)
+        ->select('tickets.id','working_days.id as working_day_id')
         ->first();
 
-        if($waitingTicket){
+        $ticketToCancel = Ticket::find($request->ticketId);
+        $ticketToCancel->ticketStatus = 'cancelled';
+        $ticketToCancel->save();
+
+        //try to find waiting list ticket with same shift and same service
+        $waitingTicketObject = DB::table('tickets')
+        ->join('schedule','tickets.scheduleId','=','schedule.id')
+        ->join('working_days','schedule.workDayId','=','working_days.id')
+        ->join('services','tickets.serviceId','=','services.id')
+        ->where('working_days.id','=',$TicketToCancelObject->working_day_id)
+        ->where('tickets.shift','=',$ticketToCancel->shift)
+        ->where('tickets.serviceId','=',$ticketToCancel->serviceId)
+        ->where('tickets.ticketStatus','=','waiting-list')
+        ->orderBy('tickets.id', 'asc')
+        ->select('tickets.id','services.serviceTime')
+        ->first();
+
+
+        if($waitingTicketObject){
+            $waitingTicket = Ticket::find($waitingTicketObject->id);
             $waitingTicket->ticketStatus = 'pending-payment';
-            $waitingTicket->ticketStartTime = $ticket->ticketStartTime;
-            $waitingTicket->ticketEstimatedEndTime = $ticket->ticketEstimatedEndTime;
+            $waitingTicket->ticketStartTime = $ticketToCancel->ticketStartTime;
+            $waitingTicket->ticketEstimatedEndTime = $ticketToCancel->ticketEstimatedEndTime;
+            $waitingTicket->scheduleId = $ticketToCancel->scheduleId;
             $waitingTicket->save();
+            //TODO:
             //send notification to mobile
         }
         return response()->json(['status'=>'success','message'=>__('Ticket cancelled')]);
@@ -368,29 +389,34 @@ class PassportController extends Controller
 
         return response()->json(['workingDays'=>$workingDays]);
     }
+
+
     public function payment(Request $request)
     {
         $request->validate([
             'ticketId' =>'required',
         ]);
-        $requirements =explode(',',request('requirements'));
-        foreach($requirements as $requirement_id)
-        {
-              $ticket = Ticket::find($request->ticketId);
-              $ticket->ticketStatus = "in-progress";
-              $ticket->save();
-              $file = $request->file($requirement_id);
-              $requirement = new File();
-              $fileSaveAsName = time() . "usersFiles." .$file->getClientOriginalExtension();
-              $upload_path = public_path('/usersFiles/files/');
-              $file_url = $upload_path . $fileSaveAsName;
-              $file->move($upload_path, $fileSaveAsName);
-              $requirement->fileUrl = '/usersFiles/files/'.$fileSaveAsName;
-              $requirement->ticketId = $request->ticketId;
-              $requirement->requirementId = $requirement_id;
-              $requirement->save();
+
+        $ticket = Ticket::find($request->ticketId);
+        $ticket->ticketStatus = "in-progress";
+        $ticket->save();
+        if($request->has('requirements')){
+            $requirements =explode(',',request('requirements'));
+            foreach($requirements as $requirement_id)
+            {
+                $file = $request->file($requirement_id);
+                $requirement = new File();
+                $fileSaveAsName = time() . "usersFiles." .$file->getClientOriginalExtension();
+                $upload_path = public_path('/usersFiles/files/');
+                $file_url = $upload_path . $fileSaveAsName;
+                $file->move($upload_path, $fileSaveAsName);
+                $requirement->fileUrl = '/usersFiles/files/'.$fileSaveAsName;
+                $requirement->ticketId = $request->ticketId;
+                $requirement->requirementId = $requirement_id;
+                $requirement->save();
+            }
         }
-    return response()->json(['status' =>'success'] );
+        return response()->json(['status' =>'success'] );
     }
 
     //history of user tickets
@@ -405,7 +431,7 @@ class PassportController extends Controller
         ->where('tickets.userId',$userId)
         ->select('tickets.id','services.serviceName as name','tickets.ticketStatus as status',
         'tickets.ticketStartTime as time','tickets.ticketRate as rate'
-        ,'working_days.date as workingday-date','working_days.id as workingday-id')
+        ,'working_days.date as workingday_date','working_days.id as workingday-id')
         ->get();
          return  response()->json(['status' =>'success','history'=>$tickets] );
     }
@@ -419,6 +445,24 @@ class PassportController extends Controller
         $file_url = base_path().'/public'.'/usersFiles/uploadFile/'.$file_name;
         return response()->json(['file_url'=>$file_url]);
 
+    }
+
+    public function rate(Request $request)
+    {
+        $request->validate([
+            'ticketId' =>'required',
+            'rate' =>'required|max:5|min:1',
+        ]);
+
+        $ticket = Ticket::find($request->ticketId);
+        $ticket->ticketRate = $request->rate;
+        if($request->has('feedback')){
+            $ticket->ticketFeedback = $request->feedback;
+        }
+        $ticket->ticketStatus = 'rated';
+        $ticket->save();
+        
+        return response()->json(['status' =>'success'] );
     }
 
 }
